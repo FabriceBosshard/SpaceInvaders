@@ -69,6 +69,11 @@ namespace SpaceInvaders
 
         public int PlayerWidth { get; } = 100;
 
+        public object PlayerViewModel
+        {
+            get { throw new NotImplementedException(); }
+        }
+
         public void Move(DirectionPlayer direction)
         {
             if (direction == DirectionPlayer.Left)
