@@ -23,6 +23,7 @@ namespace SpaceInvaders
         public Image player;
         private Ellipse laser = Laser.CreateLaser();
         private Point position;
+        private InvaderRow invaderRow = new InvaderRow();
 
         private DispatcherTimer t;
 

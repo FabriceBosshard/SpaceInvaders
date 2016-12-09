@@ -66,6 +66,7 @@
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="NotifyPropertyChangedViewModel.cs" />
     <Compile Include="Score.cs" />
+    <Compile Include="Timer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
