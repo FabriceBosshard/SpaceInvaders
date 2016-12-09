@@ -45,7 +45,7 @@ namespace SpaceInvaders
 
         private double _top;
         private double _left;
-        private const int Speed = 30;
+        private const int Speed = 20;
 
         public double Top
         {
