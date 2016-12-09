@@ -22,6 +22,7 @@ namespace SpaceInvaders
         public Image player;
         private Ellipse laser = Laser.CreateLaser();
         private Point position;
+        private InvaderRow invaderRow = new InvaderRow();
 
         private DispatcherTimer t;
 
@@ -47,13 +48,14 @@ namespace SpaceInvaders
         {
             position.Y -= bulletSpeed;
             Canvas.SetTop(laser, position.Y);
-            Canvas.SetLeft(laser, position.X + 50); 
-
+            Canvas.SetLeft(laser, position.X + 50);
+            invaderRow.CheckLaserCollisionWithInvader(laser);
             if (position.Y < 0)
             {
                 DeleteBullet();
             }
         }
+
 
         public void DeleteBullet()
         {

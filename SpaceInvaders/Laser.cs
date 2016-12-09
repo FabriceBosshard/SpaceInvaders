@@ -10,15 +10,17 @@ namespace SpaceInvaders
 {
     static class Laser
     {
-       private static int length = 30;
-       private static int width = 2;
+        private const int length = 30;
+        private const int width = 2;
 
-       public static Ellipse CreateLaser()
+        public static Ellipse CreateLaser()
         {
-            Ellipse laser = new Ellipse();
-            laser.Height = length;
-            laser.Width = width;
-            laser.Fill = Brushes.Red;
+            Ellipse laser = new Ellipse()
+            {
+                Height = length,
+                Width = width,
+                Fill = Brushes.Red
+            };
             return laser;
         }
     }
