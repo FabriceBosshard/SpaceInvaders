@@ -23,7 +23,7 @@ namespace SpaceInvaders
         public Image player;
         private Ellipse laser = Laser.CreateLaser();
         private Point position;
-        private InvaderRow invaderRow = new InvaderRow();
+
 
         private DispatcherTimer t;
 
@@ -39,6 +39,7 @@ namespace SpaceInvaders
             Canvas.SetTop(laser, position.Y);
             Canvas.SetLeft(laser, position.X + 50);
             canvas.Children.Add(laser);
+            UIObjects.LaserList.Add(laser);
 
             t = new DispatcherTimer {Interval = new TimeSpan(10000)};
             t.Tick += Shoot;
@@ -51,7 +52,9 @@ namespace SpaceInvaders
             Canvas.SetTop(laser, position.Y);
             Canvas.SetLeft(laser, position.X + 50);
 
-            if (position.Y < 0)
+            UIObjects.CheckCollisionBetweenLaserPlayer(canvas);
+
+            if (position.Y < 0 || UIObjects.hasBeenHit)
             {
                 DeleteBullet();
             }
@@ -60,9 +63,11 @@ namespace SpaceInvaders
         public void DeleteBullet()
         {
             canvas.Children.Remove(laser);
+            UIObjects.LaserList.RemoveAt(0);
             isShooting = false;
             t.Stop();
             position.Y = 642;
+
         }
 
         public void Die()

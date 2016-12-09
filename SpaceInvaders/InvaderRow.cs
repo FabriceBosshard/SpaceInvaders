@@ -13,6 +13,7 @@ namespace SpaceInvaders
 {
     class InvaderRow
     {
+        //Mach eine überklasse die eine Liste mit den UIElements hat.
         private double left = 60;
         private double top;
 
@@ -76,8 +77,10 @@ namespace SpaceInvaders
                         Canvas.SetTop(Body, StartingPoint.Y + top);
                         Canvas.SetLeft(Body, StartingPoint.X + (i * left));
                         canvas.Children.Add(Body);
+                        
                     }
                     invaders.Add(Body);
+                    UIObjects.InvaderList.Add(Body);
                     invadercount++;
                 }
                 top += 50;
