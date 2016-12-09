@@ -92,13 +92,7 @@ namespace SpaceInvaders
             CheckCollision(invaders);
 
         }
-        public void CheckLaserCollisionWithInvader(Ellipse laser)
-        {
-            foreach (var inv in invaders)
-            {
-                //sdsd
-            }
-        }
+        
         public bool CheckCollisionWithBorderRight(UIElement inv)
         {
             if (Canvas.GetLeft(inv) > 730)
@@ -139,12 +133,6 @@ namespace SpaceInvaders
             }
             hasTurned = false;
             isBorder = false;
-        }
-
-        public bool CheckCollisionWithLaser()
-        {
-
-            return false;
         }
 
         public void CheckCollision(List<UIElement> invaders)
