@@ -96,7 +96,7 @@ namespace SpaceInvaders
         {
             foreach (var inv in invaders)
             {
-                
+                //sdsd
             }
         }
         public bool CheckCollisionWithBorderRight(UIElement inv)
