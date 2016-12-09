@@ -39,6 +39,7 @@ namespace SpaceInvaders
         public void Die(UIElement inv)
         {
             canvas.Children.Remove(inv);
+
         }
 
         public void DecrementLives(UIElement inv)
@@ -95,20 +96,7 @@ namespace SpaceInvaders
         {
             foreach (var inv in invaders)
             {
-                Point InvaderPosition = new Point()
-                {
-                    X = Canvas.GetLeft(inv),
-                    Y = Canvas.GetTop(inv)
-                };
-                Point LaserPosition = new Point()
-                {
-                    X = Canvas.GetLeft(laser),
-                    Y = Canvas.GetTop(laser)
-                };
-                if (InvaderPosition == LaserPosition)
-                {
-                    Die(inv);
-                }
+                
             }
         }
         public bool CheckCollisionWithBorderRight(UIElement inv)
