@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Ink;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
@@ -49,13 +50,12 @@ namespace SpaceInvaders
             position.Y -= bulletSpeed;
             Canvas.SetTop(laser, position.Y);
             Canvas.SetLeft(laser, position.X + 50);
-            invaderRow.CheckLaserCollisionWithInvader(laser);
+
             if (position.Y < 0)
             {
                 DeleteBullet();
             }
         }
-
 
         public void DeleteBullet()
         {
