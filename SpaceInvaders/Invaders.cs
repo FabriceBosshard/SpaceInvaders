@@ -1,107 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace SpaceInvaders
 {
-    class InvaderRow
+    class Invaders
     {
-        private double left = 60;
-        private double top;
-
+        private int lives = 1;
+        private int hitPoints = 10;
+        private int count = 10;
         private Point OldPosition;
         bool isBorder = false;
         private bool hasTurned;
 
-        private Point StartingPoint = new Point(40, 0);
-        private List<UIElement> invaders = new List<UIElement>();
-        private int InvaderWidth = 40;
-        private int InvaderHeight = 40;
-        private int invadercount;
-        private Canvas canvas;
-        DispatcherTimer t = new DispatcherTimer();
-
-        private int lives = 1;
-        private int hitPoints = 10;
-
-        public InvaderRow()
+        public void Die()
         {
-
+            //sc.score += hitPoints;
         }
 
-        public void Die(UIElement inv)
-        {
-            canvas.Children.Remove(inv);
-
-        }
-
-        public void DecrementLives(UIElement inv)
+        public void DecrementLives()
         {
             lives--;
             if (lives == 0)
             {
-                Die(inv);
+                Die();
             }
         }
 
-        public InvaderRow(Canvas canvas)
-        {
-            this.canvas = canvas;
-            for (int j = 0; j < 2; j++)
-            {
-                for (int i = 0; i < 8; i++)
-                {
-                    UIElement Body = new Image
-                    {
-                        Width = InvaderWidth,
-                        Height = InvaderHeight,
-                        Source = new BitmapImage(new Uri("invader2.gif", UriKind.Relative))
-                    };
+        public int XOffset { get; } = 200;
+        public int PlayboardWidth { get; } = 794;
+        public int InvaderWidth { get; } = 51;
 
-                    if (invadercount == 0)
-                    {
-                        Canvas.SetTop(Body, StartingPoint.Y);
-                        Canvas.SetLeft(Body, StartingPoint.X);
-                        canvas.Children.Add(Body);
-                    }
-                    else
-                    {
-                        Canvas.SetTop(Body, StartingPoint.Y + top);
-                        Canvas.SetLeft(Body, StartingPoint.X + (i * left));
-                        canvas.Children.Add(Body);
-                    }
-                    invaders.Add(Body);
-                    invadercount++;
-                }
-                top += 50;
-            }
-            t.Interval = new TimeSpan(0,0,0,0,800);
-            t.Tick += InvaderRow_Tick;
-            t.Start();
-        }
-
-        private void InvaderRow_Tick(object sender, EventArgs e)
-        {           
-            CheckCollision(invaders);
-
-        }
-        public void CheckLaserCollisionWithInvader(Ellipse laser)
-        {
-            foreach (var inv in invaders)
-            {
-                //sdsd
-            }
-        }
         public bool CheckCollisionWithBorderRight(UIElement inv)
         {
-            if (Canvas.GetLeft(inv) > 730)
+            if (Canvas.GetLeft(inv) > PlayboardWidth)
             {
                 return true;
             }
@@ -110,8 +49,8 @@ namespace SpaceInvaders
 
         public bool CheckCollisionWithBorderLeft(UIElement inv)
         {
-            if (Canvas.GetLeft(inv) < 40)
-            {
+            if (Canvas.GetLeft(inv) < XOffset)
+            {              
                 return true;
             }
             return false;
@@ -129,12 +68,12 @@ namespace SpaceInvaders
                 if (direction)
                 {
                     Canvas.SetLeft(inv, OldPosition.X - 35);
-
+                    
                 }
                 else
                 {
                     Canvas.SetLeft(inv, OldPosition.X + 35);
-
+                    
                 }
             }
             hasTurned = false;
@@ -185,6 +124,7 @@ namespace SpaceInvaders
                 Canvas.SetLeft(inv, OldPosition.X);
             }
             hasTurned = true;
-        }
+        }           
     }
 }
+

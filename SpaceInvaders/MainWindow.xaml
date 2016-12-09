@@ -51,7 +51,6 @@
                 <Canvas.Background>
                     <ImageBrush ImageSource="nebula.png" Stretch="UniformToFill"/>
                 </Canvas.Background>
-                
                 <!--Raumschiff-->
                 <Image x:Name="Player" IsEnabled="{Binding IsPaused, Converter={StaticResource InverseBooleanConverter}}" Height="100" Canvas.Left="{Binding Left}" Source="Spaceship-PNG-File.png" Stretch="Fill" Canvas.Top="581" Width="{Binding PlayerWidth}" />
             </Canvas>

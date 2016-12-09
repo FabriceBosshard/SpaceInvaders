@@ -85,12 +85,16 @@ namespace SpaceInvaders
                         if (!player.isShooting)
                         {
                             player.ConfigureShoot(Playground, Player);
-                        }                                    
+                        }
                         break;
                     case Key.Left:
+                    case Key.A:
+                    case Key.NumPad4:
                         MainWindowViewModel.Move(DirectionPlayer.Left);
                         break;
                     case Key.Right:
+                    case Key.D:
+                    case Key.NumPad6:
                         MainWindowViewModel.Move(DirectionPlayer.Right);
                         break;
                     case Key.Escape:
