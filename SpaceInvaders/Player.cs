@@ -45,7 +45,7 @@ namespace SpaceInvaders
             t.Tick += Shoot;
             t.Start();
         }
-
+        
         public void Shoot(object sender, EventArgs e)
         {
             position.Y -= bulletSpeed;
@@ -66,23 +66,7 @@ namespace SpaceInvaders
             UIObjects.LaserList.RemoveAt(0);
             isShooting = false;
             UIObjects.hasBeenHit = false;
-            t.Stop();
-            position.Y = 642;
-
-        }
-
-        public void Die()
-        {
-
-        }
-
-        public void DecrementLives()
-        {
-            lives--;
-            if (lives == 0)
-            {
-                Die();
-            }
+            t.Stop();          
         }
     }
 }

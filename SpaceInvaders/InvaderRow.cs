@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
@@ -13,80 +14,149 @@ namespace SpaceInvaders
 {
     class InvaderRow
     {
-        private double left = 60;
-        private double top;
+        private readonly double left = 60;
+        private readonly double top;
 
-        private Point OldPosition;
-        bool isBorder = false;
-        private bool hasTurned;
+        private Point _oldPosition;
+        private bool _isBorder = false;
+        private bool _hasTurned;
+        private readonly int _invadersRows = 2;
+        private readonly int _invaderCountRows = 10;
 
-        private Point StartingPoint = new Point(40, 0);
-        private List<UIElement> invaders = new List<UIElement>();
-        private int InvaderWidth = 40;
-        private int InvaderHeight = 40;
-        private int invadercount;
-        private Canvas canvas;
-        private Score s = Score.InstanceCreation();
-        DispatcherTimer t = new DispatcherTimer();
-
-        private int lives = 1;
-        private int hitPoints = 10;
-
-        public InvaderRow()
-        {
-
-        }
+        private readonly Point _startingPoint = new Point(40, 0);
+        private List<UIElement> _invaders = new List<UIElement>();
+        private int _invaderWidth = 40;
+        private readonly int _invaderHeight = 40;
+        private readonly int _invadercount;
+        private Canvas _canvas;
+        
+        private readonly Score _s = Score.InstanceCreation();
+        private readonly DispatcherTimer _t = new DispatcherTimer();
+        private DispatcherTimer invT;
+        private DispatcherTimer RandomTimer = new DispatcherTimer();
+        private readonly TimeSpan _speed = new TimeSpan(0,0,0,0,800);
+        private int _lives = 1;
+        private int _hitPoints = 10;
+        private Point InvaderShootPos;
+        private int bulletSpeed = 10;
+        private Ellipse laser;
 
         public InvaderRow(Canvas canvas)
         {
-            this.canvas = canvas;
-            for (int j = 0; j < 2; j++)
+            this._canvas = canvas;
+            for (int j = 0; j < _invadersRows; j++)
             {
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < _invaderCountRows; i++)
                 {
                     UIElement Body = new Image
                     {
-                        Width = InvaderWidth,
-                        Height = InvaderHeight,
+                        Width = _invaderWidth,
+                        Height = _invaderHeight,
                         Source = new BitmapImage(new Uri("invader2.gif", UriKind.Relative))
                     };
 
-                    if (invadercount == 0)
+                    if (_invadercount == 0)
                     {
-                        Canvas.SetTop(Body, StartingPoint.Y);
-                        Canvas.SetLeft(Body, StartingPoint.X);
+                        Canvas.SetTop(Body, _startingPoint.Y);
+                        Canvas.SetLeft(Body, _startingPoint.X);
                         canvas.Children.Add(Body);
                     }
                     else
                     {
-                        Canvas.SetTop(Body, StartingPoint.Y + top);
-                        Canvas.SetLeft(Body, StartingPoint.X + (i * left));
+                        Canvas.SetTop(Body, _startingPoint.Y + top);
+                        Canvas.SetLeft(Body, _startingPoint.X + (i * left));
                         canvas.Children.Add(Body);
                         
                     }
-                    invaders.Add(Body);
+                    _invaders.Add(Body);
                     UIObjects.InvaderList.Add(Body);
-                    invadercount++;
+                    _invadercount++;
                 }
                 top += 50;
             }
-            t.Interval = new TimeSpan(0,0,0,0,800);
-            t.Tick += InvaderRow_Tick;
-            t.Start();
+            _t.Interval = _speed;
+            _t.Tick += InvaderRow_Tick;
+            _t.Start();           
         }
 
         private void InvaderRow_Tick(object sender, EventArgs e)
-        {           
-            CheckCollision(invaders);
+        {
+            _invaders = UIObjects.InvaderList;
+            CheckCollision(_invaders);
             UpdatePoints();
+            CheckPositionInvaders(_invaders);
+            
+        }
 
+        private void InvaderShoot(List<UIElement> invaders)
+        {
+            foreach (UIElement inv in invaders)
+            {
+                Ellipse laser = Laser.CreateLaser();
+                Random rnd = new Random();
+
+                if (rnd.Next(1,30) < 5)
+                {
+                    InvaderShootPos.Y = Canvas.GetTop(inv);
+                    InvaderShootPos.X = Canvas.GetLeft(inv);
+
+                    Canvas.SetTop(laser,InvaderShootPos.Y);
+                    Canvas.SetLeft(laser,InvaderShootPos.X + 20);
+                    _canvas.Children.Add(laser);
+                    UIObjects.InvaderLaserList.Add(laser);
+
+                    //invT = new DispatcherTimer {Interval = new TimeSpan(10000)};
+                    //invT.Tick += Shoot;
+                    //invT.Start();
+                }
+            }
+        }
+
+        private void Shoot(object sender, EventArgs e)
+        {
+            
+            InvaderShootPos.Y -= bulletSpeed;
+            Canvas.SetTop(laser, InvaderShootPos.Y);
+            Canvas.SetLeft(laser, InvaderShootPos.X + 20);
+
+            UIObjects.CheckCollisionBetweenInvLaserPlayer(_canvas);
+
+            if (InvaderShootPos.Y > 642 || UIObjects.PlayerHasBeenHit)
+            {
+                DeleteBullet();
+            }
+        }
+
+        private void DeleteBullet()
+        {
+            _canvas.Children.Remove(laser);
+            UIObjects.InvaderLaserList.RemoveAt(0);           
+            UIObjects.PlayerHasBeenHit = false;
+            invT.Stop();            
+        }
+
+        private void CheckPositionInvaders(List<UIElement> invaders)
+        {
+            foreach (var inv in invaders)
+            {
+                Point invaderPosition = new Point()
+                {
+                    X = Canvas.GetLeft(inv),
+                    Y = Canvas.GetTop(inv)
+                };
+                if (invaderPosition.Y > 580)
+                {
+                    //Player dies
+                    Environment.Exit(0);
+                }
+            }
         }
 
         private void UpdatePoints()
         {
             if (UIObjects.updatePoints)
             {
-                s.score += hitPoints;
+                _s.score += _hitPoints;
             }
         }
 
@@ -114,22 +184,22 @@ namespace SpaceInvaders
         {
             foreach (UIElement inv in invaders)
             {
-                OldPosition.X = Canvas.GetLeft(inv);
-                OldPosition.Y = Canvas.GetTop(inv);
+                _oldPosition.X = Canvas.GetLeft(inv);
+                _oldPosition.Y = Canvas.GetTop(inv);
 
                 if (direction)
                 {
-                    Canvas.SetLeft(inv, OldPosition.X - 35);
+                    Canvas.SetLeft(inv, _oldPosition.X - 35);
 
                 }
                 else
                 {
-                    Canvas.SetLeft(inv, OldPosition.X + 35);
+                    Canvas.SetLeft(inv, _oldPosition.X + 35);
 
                 }
             }
-            hasTurned = false;
-            isBorder = false;
+            _hasTurned = false;
+            _isBorder = false;
         }
 
         public void CheckCollision(List<UIElement> invaders)
@@ -139,16 +209,16 @@ namespace SpaceInvaders
 
                 if (CheckCollisionWithBorderLeft(inv))
                 {
-                    isBorder = true;
+                    _isBorder = true;
                     direction = false;
                 }
                 else if (CheckCollisionWithBorderRight(inv))
                 {
-                    isBorder = true;
+                    _isBorder = true;
                     direction = true;
                 }
             }
-            if (isBorder && !hasTurned)
+            if (_isBorder && !_hasTurned)
             {
                 oneDown(invaders);
 
@@ -163,13 +233,13 @@ namespace SpaceInvaders
         {
             foreach (var inv in invaders)
             {
-                OldPosition.X = Canvas.GetLeft(inv);
-                OldPosition.Y = Canvas.GetTop(inv);
+                _oldPosition.X = Canvas.GetLeft(inv);
+                _oldPosition.Y = Canvas.GetTop(inv);
 
-                Canvas.SetTop(inv, OldPosition.Y + 50);
-                Canvas.SetLeft(inv, OldPosition.X);
+                Canvas.SetTop(inv, _oldPosition.Y + 50);
+                Canvas.SetLeft(inv, _oldPosition.X);
             }
-            hasTurned = true;
+            _hasTurned = true;
         }
     }
 }

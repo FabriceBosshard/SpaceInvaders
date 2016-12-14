@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,9 +14,11 @@ namespace SpaceInvaders
         public static List<UIElement> InvaderList = new List<UIElement>();
         public static List<UIElement> LaserList = new List<UIElement>();
         public static List<UIElement> PlayerList = new List<UIElement>();
+        public static List<UIElement> InvaderLaserList = new List<UIElement>();
         public static bool hasBeenHit;
         public static bool updatePoints;
-        public event EventHandler InvaderDie;
+        public static bool PlayerDie;
+        public static bool PlayerHasBeenHit { get; set; }
 
         public static void CheckCollisionBetweenLaserPlayer(Canvas canvas)
         {
@@ -32,9 +35,9 @@ namespace SpaceInvaders
                     X = Canvas.GetLeft(LaserList.ElementAt(0)),
                     Y = Canvas.GetTop(LaserList.ElementAt(0))
                 };
-
+                
                 //Fromel Stimmt noch nicht genau
-                if ((Math.Abs(Invaderposition.X - Laserposition.X) < 15) && (Math.Abs(Invaderposition.Y - Laserposition.Y) < 15))
+                if ((Math.Abs(Invaderposition.X - Laserposition.X) < 40) && (Math.Abs(Invaderposition.Y - Laserposition.Y) < 40))
                 {
                     InvaderList.Remove(inv);
                     canvas.Children.Remove(inv);
@@ -44,6 +47,11 @@ namespace SpaceInvaders
             }
             updatePoints = false;
 
+        }
+
+        public static void CheckCollisionBetweenInvLaserPlayer(Canvas canvas)
+        {
+            
         }
     }
 }
