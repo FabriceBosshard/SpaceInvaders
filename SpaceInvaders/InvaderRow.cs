@@ -13,7 +13,6 @@ namespace SpaceInvaders
 {
     class InvaderRow
     {
-        //Mach eine überklasse die eine Liste mit den UIElements hat.
         private double left = 60;
         private double top;
 
@@ -27,6 +26,7 @@ namespace SpaceInvaders
         private int InvaderHeight = 40;
         private int invadercount;
         private Canvas canvas;
+        private Score s = Score.InstanceCreation();
         DispatcherTimer t = new DispatcherTimer();
 
         private int lives = 1;
@@ -35,21 +35,6 @@ namespace SpaceInvaders
         public InvaderRow()
         {
 
-        }
-
-        public void Die(UIElement inv)
-        {
-            canvas.Children.Remove(inv);
-
-        }
-
-        public void DecrementLives(UIElement inv)
-        {
-            lives--;
-            if (lives == 0)
-            {
-                Die(inv);
-            }
         }
 
         public InvaderRow(Canvas canvas)
@@ -93,9 +78,18 @@ namespace SpaceInvaders
         private void InvaderRow_Tick(object sender, EventArgs e)
         {           
             CheckCollision(invaders);
+            UpdatePoints();
 
         }
-        
+
+        private void UpdatePoints()
+        {
+            if (UIObjects.updatePoints)
+            {
+                s.score += hitPoints;
+            }
+        }
+
         public bool CheckCollisionWithBorderRight(UIElement inv)
         {
             if (Canvas.GetLeft(inv) > 730)

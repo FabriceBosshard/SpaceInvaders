@@ -65,6 +65,7 @@ namespace SpaceInvaders
             canvas.Children.Remove(laser);
             UIObjects.LaserList.RemoveAt(0);
             isShooting = false;
+            UIObjects.hasBeenHit = false;
             t.Stop();
             position.Y = 642;
 

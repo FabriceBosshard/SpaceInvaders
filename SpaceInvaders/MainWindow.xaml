@@ -24,9 +24,9 @@
         <Grid x:Name="DisplayGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#000000" Grid.Row="0" Grid.ColumnSpan="3">
             <StackPanel x:Name="DisplayStackPanel" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="4">
                 <TextBox x:Name="ScoreText" IsReadOnly="True" HorizontalAlignment="Left" Height="75" TextWrapping="Wrap" Text="SCORE:" VerticalAlignment="Top" Width="296" FontSize="48" FontFamily="Levenim MT" Background="#FF636363"/>
-                <TextBox x:Name="Score" IsReadOnly="True" TextWrapping="Wrap" Text="0" Width="285" Background="#000000" FontSize="48" FontFamily="Levenim MT" Margin="0,0,0,15.2" Height="75"/>
+                <TextBox x:Name="Score" IsReadOnly="True" TextWrapping="Wrap" Text="{Binding score}" Width="285" Background="#000000" FontSize="48" FontFamily="Levenim MT" Margin="0,0,0,15.2" Height="75" Foreground="Red"/>
                 <TextBox x:Name="LivesText" IsReadOnly="True" HorizontalAlignment="Left" Height="75" TextWrapping="Wrap" Text="LIVES: " VerticalAlignment="Top" Width="322" FontSize="48" FontFamily="Levenim MT" Background="#FF636363"/>
-                <TextBox x:Name="Lives" IsReadOnly="True" TextWrapping="Wrap" Text="♥ ♥ ♥ " Width="295" Background="#000000" FontSize="48" FontFamily="Levenim MT" Margin="0,0,0,15.2" Height="75"/>
+                <TextBox x:Name="Lives" IsReadOnly="True" TextWrapping="Wrap" Text="♥ ♥ ♥ " Width="295" Background="#000000" FontSize="48" FontFamily="Levenim MT" Margin="0,0,0,15.2" Height="75" Foreground="Red"/>
             </StackPanel>
         </Grid>
         <Grid x:Name="LeftGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Row="1" Column="0" Background="#000000">

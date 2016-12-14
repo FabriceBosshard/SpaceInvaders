@@ -8,17 +8,20 @@ using System.Windows.Controls;
 
 namespace SpaceInvaders
 {
-    static class UIObjects
+    class UIObjects
     {
         public static List<UIElement> InvaderList = new List<UIElement>();
         public static List<UIElement> LaserList = new List<UIElement>();
         public static List<UIElement> PlayerList = new List<UIElement>();
         public static bool hasBeenHit;
+        public static bool updatePoints;
+        public event EventHandler InvaderDie;
 
         public static void CheckCollisionBetweenLaserPlayer(Canvas canvas)
         {
-            foreach (UIElement inv in InvaderList)
+            for (int i = 0; i < InvaderList.Count; i++)
             {
+                UIElement inv = InvaderList.ElementAt(i);
                 Point Invaderposition = new Point()
                 {
                     X = Canvas.GetLeft(inv),
@@ -29,15 +32,18 @@ namespace SpaceInvaders
                     X = Canvas.GetLeft(LaserList.ElementAt(0)),
                     Y = Canvas.GetTop(LaserList.ElementAt(0))
                 };
+
                 //Fromel Stimmt noch nicht genau
-                if ((Math.Abs(Invaderposition.X - Laserposition.X) < 10) && (Math.Abs(Invaderposition.Y - Laserposition.Y) < 10))
+                if ((Math.Abs(Invaderposition.X - Laserposition.X) < 15) && (Math.Abs(Invaderposition.Y - Laserposition.Y) < 15))
                 {
+                    InvaderList.Remove(inv);
                     canvas.Children.Remove(inv);
                     hasBeenHit = true;
+                    updatePoints = true;
                 }
-                
             }
-            
+            updatePoints = false;
+
         }
     }
 }
