@@ -18,6 +18,7 @@ namespace SpaceInvaders
         public static bool hasBeenHit;
         public static bool updatePoints;
         public static bool PlayerDie;
+        public static bool InvaderListEmpty;
         public static bool PlayerHasBeenHit { get; set; }
 
         public static void CheckCollisionBetweenLaserPlayer(Canvas canvas)
@@ -52,6 +53,16 @@ namespace SpaceInvaders
         public static void CheckCollisionBetweenInvLaserPlayer(Canvas canvas)
         {
             
+        }
+
+        public static void checkInvaderCount()
+        {
+            if (InvaderList.Count == 0)
+            {
+                //Player wins / new Wave
+                InvaderListEmpty = true;
+                Environment.Exit(0);
+            }
         }
     }
 }

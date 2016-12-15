@@ -85,55 +85,56 @@ namespace SpaceInvaders
             CheckCollision(_invaders);
             UpdatePoints();
             CheckPositionInvaders(_invaders);
+            UIObjects.checkInvaderCount();
+
+        }
+
+        //private void InvaderShoot(List<UIElement> invaders)
+        //{
+        //    foreach (UIElement inv in invaders)
+        //    {
+        //        Ellipse laser = Laser.CreateLaser();
+        //        Random rnd = new Random();
+
+        //        if (rnd.Next(1,30) < 5)
+        //        {
+        //            InvaderShootPos.Y = Canvas.GetTop(inv);
+        //            InvaderShootPos.X = Canvas.GetLeft(inv);
+
+        //            Canvas.SetTop(laser,InvaderShootPos.Y);
+        //            Canvas.SetLeft(laser,InvaderShootPos.X + 20);
+        //            _canvas.Children.Add(laser);
+        //            UIObjects.InvaderLaserList.Add(laser);
+
+        //            invT = new DispatcherTimer { Interval = new TimeSpan(10000) };
+        //            invT.Tick += Shoot;
+        //            invT.Start();
+        //        }
+        //    }
+        //}
+
+        //private void Shoot(object sender, EventArgs e)
+        //{
             
-        }
+        //    InvaderShootPos.Y -= bulletSpeed;
+        //    Canvas.SetTop(laser, InvaderShootPos.Y);
+        //    Canvas.SetLeft(laser, InvaderShootPos.X + 20);
 
-        private void InvaderShoot(List<UIElement> invaders)
-        {
-            foreach (UIElement inv in invaders)
-            {
-                Ellipse laser = Laser.CreateLaser();
-                Random rnd = new Random();
+        //    UIObjects.CheckCollisionBetweenInvLaserPlayer(_canvas);
 
-                if (rnd.Next(1,30) < 5)
-                {
-                    InvaderShootPos.Y = Canvas.GetTop(inv);
-                    InvaderShootPos.X = Canvas.GetLeft(inv);
+        //    if (InvaderShootPos.Y > 642 || UIObjects.PlayerHasBeenHit)
+        //    {
+        //        DeleteBullet();
+        //    }
+        //}
 
-                    Canvas.SetTop(laser,InvaderShootPos.Y);
-                    Canvas.SetLeft(laser,InvaderShootPos.X + 20);
-                    _canvas.Children.Add(laser);
-                    UIObjects.InvaderLaserList.Add(laser);
-
-                    //invT = new DispatcherTimer {Interval = new TimeSpan(10000)};
-                    //invT.Tick += Shoot;
-                    //invT.Start();
-                }
-            }
-        }
-
-        private void Shoot(object sender, EventArgs e)
-        {
-            
-            InvaderShootPos.Y -= bulletSpeed;
-            Canvas.SetTop(laser, InvaderShootPos.Y);
-            Canvas.SetLeft(laser, InvaderShootPos.X + 20);
-
-            UIObjects.CheckCollisionBetweenInvLaserPlayer(_canvas);
-
-            if (InvaderShootPos.Y > 642 || UIObjects.PlayerHasBeenHit)
-            {
-                DeleteBullet();
-            }
-        }
-
-        private void DeleteBullet()
-        {
-            _canvas.Children.Remove(laser);
-            UIObjects.InvaderLaserList.RemoveAt(0);           
-            UIObjects.PlayerHasBeenHit = false;
-            invT.Stop();            
-        }
+        //private void DeleteBullet()
+        //{
+        //    _canvas.Children.Remove(laser);
+        //    UIObjects.InvaderLaserList.RemoveAt(0);           
+        //    UIObjects.PlayerHasBeenHit = false;
+        //    invT.Stop();            
+        //}
 
         private void CheckPositionInvaders(List<UIElement> invaders)
         {

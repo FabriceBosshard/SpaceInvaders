@@ -45,7 +45,6 @@ namespace SpaceInvaders
         private void StartGame()
         {       
             player = new Player();
-           
             new InvaderRow(Playground);
         }
 
