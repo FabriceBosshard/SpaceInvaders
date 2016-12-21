@@ -9,31 +9,32 @@ using System.Windows;
 
 namespace SpaceInvaders
 {
-    public class Score : INotifyPropertyChanged
+    public class ScoreHandler : INotifyPropertyChanged
     {
-        private int _score;
-        private static volatile Score scoreObject;
+        private static int _score;
+        private static volatile ScoreHandler _scoreHandlerObject;
         private static object lockingObject = new object();
 
-        private Score()
+        private ScoreHandler()
         { }
 
-        public static Score InstanceCreation()
+        public static ScoreHandler InstanceCreation()
         {
-            if (scoreObject == null)
+            _score = 0;
+            if (_scoreHandlerObject == null)
             {
                 lock (lockingObject)
                 {
-                    if (scoreObject == null)
+                    if (_scoreHandlerObject == null)
                     {
-                        scoreObject = new Score();
+                        _scoreHandlerObject = new ScoreHandler();
                     }
                 }
             }
-            return scoreObject;
+            return _scoreHandlerObject;
         }
 
-        public int score
+        public int Score
         {
             get { return _score; }
             set
@@ -41,7 +42,7 @@ namespace SpaceInvaders
                 if (_score != value)
                 {
                     _score = value;
-                    OnPropertyChanged(nameof(score));
+                    OnPropertyChanged(nameof(Score));
                 }
             }
         }

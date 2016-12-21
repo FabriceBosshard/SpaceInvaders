@@ -14,10 +14,13 @@ namespace SpaceInvaders
 {
     public class MainWindowViewModel : NotifyPropertyChangedViewModel
     {
+        public ScoreHandler S { get; set; }
+
         public MainWindowViewModel()
         {
             IsPaused = false;
             ClickCommand = new DelegateCommand(Pause);
+            S = ScoreHandler.InstanceCreation();
         }
 
         private void Pause()

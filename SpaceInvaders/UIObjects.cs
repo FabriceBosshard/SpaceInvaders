@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,7 +19,7 @@ namespace SpaceInvaders
         public static bool hasBeenHit;
         public static bool updatePoints;
         public static bool PlayerDie;
-        public static bool InvaderListEmpty;
+        public static bool newWave;
         public static bool PlayerHasBeenHit { get; set; }
 
         public static void CheckCollisionBetweenLaserPlayer(Canvas canvas)
@@ -45,9 +46,7 @@ namespace SpaceInvaders
                     hasBeenHit = true;
                     updatePoints = true;
                 }
-            }
-            updatePoints = false;
-
+            }            
         }
 
         public static void CheckCollisionBetweenInvLaserPlayer(Canvas canvas)
@@ -60,8 +59,9 @@ namespace SpaceInvaders
             if (InvaderList.Count == 0)
             {
                 //Player wins / new Wave
-                InvaderListEmpty = true;
-                Environment.Exit(0);
+                newWave = true;
+                InvaderList.Clear();
+                Thread.Sleep(1000);
             }
         }
     }
