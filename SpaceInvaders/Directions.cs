@@ -10,4 +10,11 @@ namespace SpaceInvaders
     {
         Left, Right
     }
+
+    public enum InvaderRows
+    {
+        thirtyToFourty = 7,
+        tenToTwenty = 4,
+        TwentyToThirty = 6
+    }
 }

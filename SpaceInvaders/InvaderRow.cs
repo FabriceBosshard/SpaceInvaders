@@ -12,7 +12,7 @@ using System.Windows.Threading;
 
 namespace SpaceInvaders
 {
-    class InvaderRow
+    public class InvaderRow
     {
         private readonly double left = 60;
         private double top;
@@ -20,12 +20,9 @@ namespace SpaceInvaders
         private Point _oldPosition;
         private bool _isBorder = false;
         private bool _hasTurned;
-        private int _wave = 0;
         private int _invadersRows = 2;
-        private int _invaderCountRows = 3;
-        private int _invaderCountRowsOn10 = 10;
-        private int _invaderCountRowsOn20 = 12;
-        private readonly Point _startingPoint = new Point(40, 0);
+        private int _invaderCountRows = 5;
+        private readonly Point _startingPoint = new Point(50, 0);
         private List<UIElement> _invaders = new List<UIElement>();
         private int _invaderWidth = 40;
         private readonly int _invaderHeight = 40;
@@ -33,14 +30,14 @@ namespace SpaceInvaders
         private Canvas _canvas;
         
         private readonly ScoreHandler _s = ScoreHandler.InstanceCreation();
-        private readonly DispatcherTimer _t = new DispatcherTimer();
-        private DispatcherTimer invT;
+        private DispatcherTimer _t = new DispatcherTimer();
         private readonly TimeSpan _speed = new TimeSpan(0,0,0,0,800);
-        private int _lives = 1;
         private int _hitPoints = 10;
-        private Point InvaderShootPos;
-        private int bulletSpeed = 10;
-        private Ellipse laser;
+        //private Point InvaderShootPos;
+        //private int bulletSpeed = 10;
+        //private Ellipse laser;
+
+        
 
         public void CreateNewWave()
         {            
@@ -73,7 +70,10 @@ namespace SpaceInvaders
                 }
                 top += 50;
             }
-            _wave += 1;
+            direction = false;
+            _t = new DispatcherTimer();
+            _t.Interval = _speed;
+            _t.Tick += InvaderRow_Tick;
             _t.Start();
         }
 
@@ -95,29 +95,26 @@ namespace SpaceInvaders
                     {
                         Canvas.SetTop(Body, _startingPoint.Y);
                         Canvas.SetLeft(Body, _startingPoint.X);
-                        canvas.Children.Add(Body);
                     }
                     else
                     {
                         Canvas.SetTop(Body, _startingPoint.Y + top);
-                        Canvas.SetLeft(Body, _startingPoint.X + (i * left));
-                        canvas.Children.Add(Body);                      
+                        Canvas.SetLeft(Body, _startingPoint.X + (i * left));                                            
                     }
+                    canvas.Children.Add(Body);
                     _invaders.Add(Body);
                     UIObjects.InvaderList.Add(Body);
                     _invadercount++;
                 }
                 top += 50;
             }
-            _wave = 1;
             _t.Interval = _speed;
             _t.Tick += InvaderRow_Tick;
-            _t.Start();           
+            _t.Start();                     
         }
 
         private void InvaderRow_Tick(object sender, EventArgs e)
         {
-            _invaders = UIObjects.InvaderList;
             CheckCollision(_invaders);           
             CheckPositionInvaders(_invaders);
             UIObjects.checkInvaderCount();
@@ -127,25 +124,30 @@ namespace SpaceInvaders
         }
 
         private void CheckOnNewWave()
-        {                       
+        {                                 
             if (UIObjects.newWave)
             {
+                _invaders.Clear();
+                UIObjects.InvaderList.Clear();
+                _t.Stop();
                 top = 0;
-                if (_wave >= 20)
+                if (_s.Waves >= 20)
                 {
-                    _invaderCountRows = _invaderCountRowsOn20;
+                    _invadersRows = (int)InvaderRows.TwentyToThirty;
+                    _invaderCountRows = 5;
                 }
-                else if (_wave >= 10)
+                else if (_s.Waves >= 10)
                 {
-                    _invaderCountRows = _invaderCountRowsOn20;
+                    _invadersRows = (int)InvaderRows.tenToTwenty;
+                    _invaderCountRows = 5;
                 }
-
-                _invadersRows += incrementForInvader;              
-                _wave += 1;
-                UIObjects.newWave = false;
-                CreateNewWave();
-                
-                
+                else
+                {
+                    _invaderCountRows += 1;
+                    _s.Waves += 1;
+                    UIObjects.newWave = false;
+                    CreateNewWave();
+                }                                        
             }
         }
 

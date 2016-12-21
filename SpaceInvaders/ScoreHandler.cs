@@ -9,15 +9,28 @@ using System.Windows;
 
 namespace SpaceInvaders
 {
-    public class ScoreHandler : INotifyPropertyChanged
+    public class ScoreHandler : NotifyPropertyChangedViewModel
     {
         private static int _score;
+        private static int _wave = 1; 
         private static volatile ScoreHandler _scoreHandlerObject;
         private static object lockingObject = new object();
 
         private ScoreHandler()
         { }
 
+        public int Waves
+        {
+            get { return _wave; }
+            set
+            {
+                if (_wave != value)
+                {
+                    _wave = value;
+                    OnPropertyChanged(nameof(Waves));
+                }
+            }
+        }
         public static ScoreHandler InstanceCreation()
         {
             _score = 0;
@@ -45,13 +58,6 @@ namespace SpaceInvaders
                     OnPropertyChanged(nameof(Score));
                 }
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
