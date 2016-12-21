@@ -46,7 +46,7 @@ namespace SpaceInvaders
         public MainWindow()
         {
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-            InitializeComponent();                        
+            InitializeComponent();
             StartGame();
             Playground.Focus();
             DataContext = new MainWindowViewModel();

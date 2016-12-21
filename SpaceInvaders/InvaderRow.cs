@@ -22,8 +22,8 @@ namespace SpaceInvaders
 
         private Point StartingPoint = new Point(40, 0);
         private List<UIElement> invaders = new List<UIElement>();
-        private int InvaderWidth = 40;
-        private int InvaderHeight = 40;
+        private int InvaderWidth = 50;
+        private int InvaderHeight = 50;
         private int invadercount;
         private Canvas canvas;
         DispatcherTimer t = new DispatcherTimer();
@@ -62,7 +62,7 @@ namespace SpaceInvaders
                     {
                         Width = InvaderWidth,
                         Height = InvaderHeight,
-                        Source = new BitmapImage(new Uri("invader2.gif", UriKind.Relative))
+                        Source = new BitmapImage(new Uri("invader2.png", UriKind.Relative))
                     };
 
                     if (invadercount == 0)
