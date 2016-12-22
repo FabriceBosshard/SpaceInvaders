@@ -10,19 +10,18 @@ namespace SpaceInvaders
 {
     class InvaderBombs
     {
-        static class InvaderBomb
-        {            
-            private static int length = 20;
-            private static int width = 20;
+        private const int length = 20;
+        private const int width = 20;
 
-            public static Ellipse CreateBomb()
+        public static Ellipse CreateLaser()
+        {
+            Ellipse laser = new Ellipse()
             {
-                Ellipse bomb = new Ellipse();
-                bomb.Height = length;
-                bomb.Width = width;
-                bomb.Fill = Brushes.DarkViolet;
-                return bomb;
-            }
+                Height = length,
+                Width = width,
+                Fill = Brushes.DarkViolet
+            };
+            return laser;
         }
     }
 }

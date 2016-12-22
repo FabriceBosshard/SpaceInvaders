@@ -23,6 +23,7 @@ namespace SpaceInvaders
         public Image player;
         private Ellipse laser = Laser.CreateLaser();
         private Point position;
+        readonly NotifyHandler _notifyHandler = NotifyHandler.InstanceCreation();
 
 
         private DispatcherTimer t;
@@ -40,6 +41,12 @@ namespace SpaceInvaders
             Canvas.SetLeft(laser, position.X + 50);
             canvas.Children.Add(laser);
             UIObjects.LaserList.Add(laser);
+            _notifyHandler.Bullets--;
+
+            if (_notifyHandler.Bullets == 0)
+            {
+                Environment.Exit(0);
+            }
 
             t = new DispatcherTimer {Interval = new TimeSpan(10000)};
             t.Tick += Shoot;

@@ -1,34 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using Prism.Commands;
 
 namespace SpaceInvaders
 {
     public class MainWindowViewModel : NotifyPropertyChangedViewModel
     {
-        public ScoreHandler S { get; set; }
+        private const int Speed = 20;
+
+        private bool _isPaused;
+        private double _left;
+
+        private double _top;
 
         public MainWindowViewModel()
         {
             IsPaused = false;
             ClickCommand = new DelegateCommand(Pause);
-            S = ScoreHandler.InstanceCreation();
+            _notifyHandler = NotifyHandler.InstanceCreation();
         }
 
-        private void Pause()
-        {
-            IsPaused = !IsPaused;
-        }
+        public NotifyHandler _notifyHandler { get; set; }
 
-        private bool _isPaused;
         public bool IsPaused
         {
             get { return _isPaused; }
@@ -41,14 +33,11 @@ namespace SpaceInvaders
                 }
             }
         }
+
         public DelegateCommand ClickCommand { get; }
 
         public int XOffset { get; } = 200;
         public int PlayboardWidth { get; } = 794;
-
-        private double _top;
-        private double _left;
-        private const int Speed = 20;
 
         public double Top
         {
@@ -77,30 +66,27 @@ namespace SpaceInvaders
             get { throw new NotImplementedException(); }
         }
 
+        private void Pause()
+        {
+            IsPaused = !IsPaused;
+        }
+
         public void Move(DirectionPlayer direction)
         {
             if (direction == DirectionPlayer.Left)
             {
                 if (Left - Speed > 0)
-                {
                     Left -= Speed;
-                }
                 else
-                {
                     Left = 0;
-                }
             }
             else if (direction == DirectionPlayer.Right)
             {
-                int MaxLeft = PlayboardWidth - PlayerWidth;
+                var MaxLeft = PlayboardWidth - PlayerWidth;
                 if (Left + Speed < MaxLeft)
-                {
                     Left += Speed;
-                }
                 else
-                {
                     Left = MaxLeft;
-                }
             }
         }
     }
