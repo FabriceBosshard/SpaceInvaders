@@ -45,6 +45,7 @@ namespace SpaceInvaders
         private void StartGame()
         {       
             player = new Player();
+            UIObjects.PlayerList.Add(Player);
             new InvaderRow(Playground);
         }
 
@@ -86,6 +87,10 @@ namespace SpaceInvaders
                         break;
                     case Key.Escape:
                         Environment.Exit(0);
+                        break;
+                    case Key.Enter:
+                        Process.Start(Application.ResourceAssembly.Location);
+                        Application.Current.Shutdown();
                         break;
                 }
 

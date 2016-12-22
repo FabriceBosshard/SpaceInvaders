@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Ink;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
@@ -25,8 +30,35 @@ namespace SpaceInvaders
         private Point position;
         readonly NotifyHandler _notifyHandler = NotifyHandler.InstanceCreation();
 
-
         private DispatcherTimer t;
+        private DispatcherTimer LiveChecker;
+
+        public Player()
+        {
+            LiveChecker = new DispatcherTimer { Interval = new TimeSpan(0,0,0,0,1) };
+            LiveChecker.Tick += UpdateLives;
+            LiveChecker.Start();
+        }
+
+        private void UpdateLives(object sender, EventArgs e)
+        {
+            if (UIObjects.PlayerHasBeenHit)
+            {
+                _notifyHandler.Lives--;
+                UIObjects.PlayerHasBeenHit = false;
+                if (_notifyHandler.Lives == 0)
+                {
+                    Die();
+                }
+            }
+        }
+
+        private void Die()
+        {
+            UIObjects.GameOver = true;
+            GameOver GO = new GameOver();
+            GO.Show();            
+        }
 
         public void ConfigureShoot(Canvas canvas, Image player)
         {
@@ -54,17 +86,18 @@ namespace SpaceInvaders
         }
         
         public void Shoot(object sender, EventArgs e)
-        {
+        {            
             position.Y -= bulletSpeed;
             Canvas.SetTop(laser, position.Y);
             Canvas.SetLeft(laser, position.X + 50);
 
-            UIObjects.CheckCollisionBetweenLaserPlayer(canvas);
+            UIObjects.CheckCollisionBetweenLaserInvader(canvas);
 
             if (position.Y < 0 || UIObjects.hasBeenHit)
             {
                 DeleteBullet();
             }
+            
         }
 
         public void DeleteBullet()

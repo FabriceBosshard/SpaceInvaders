@@ -10,8 +10,8 @@ namespace SpaceInvaders
 {
     class InvaderBombs
     {
-        private const int length = 20;
-        private const int width = 20;
+        private const int length = 10;
+        private const int width = 10;
 
         public static Ellipse CreateLaser()
         {
