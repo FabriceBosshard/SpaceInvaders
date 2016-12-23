@@ -122,13 +122,16 @@
     <Resource Include="Spaceship-PNG-File.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="invader2.gif" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="nebula.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="invader2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="invader1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
