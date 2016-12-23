@@ -19,7 +19,7 @@ namespace SpaceInvaders
             {
                 Height = length,
                 Width = width,
-                Fill = Brushes.DarkViolet
+                Fill = Brushes.LawnGreen
             };
             return laser;
         }

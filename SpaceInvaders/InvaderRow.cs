@@ -11,7 +11,7 @@ namespace SpaceInvaders
 {
     public class InvaderRow
     {
-        private const double Left = 60;
+        private const double Left = 50;
         private const int _invaderWidth = 40;
         private readonly int _invaderHeight = 40;
 
@@ -168,7 +168,7 @@ namespace SpaceInvaders
                 InvaderShootPos.X = Canvas.GetLeft(inv);
 
                 Canvas.SetTop(laser, InvaderShootPos.Y + 5);
-                Canvas.SetLeft(laser, InvaderShootPos.X + 20);
+                Canvas.SetLeft(laser, InvaderShootPos.X + (_invaderWidth / 2));
                 _canvas.Children.Add(laser);
                 UIObjects.InvaderLaserList.Add(laser);
 
@@ -186,7 +186,7 @@ namespace SpaceInvaders
             InvaderShootPos.Y += bulletSpeed;
 
             
-            Canvas.SetLeft(laser, InvaderShootPos.X + 17);
+            Canvas.SetLeft(laser, InvaderShootPos.X + (_invaderWidth / 2));
             Canvas.SetTop(laser, InvaderShootPos.Y + 5);
 
             UIObjects.CheckCollisionBetweenInvLaserPlayer(_canvas);
