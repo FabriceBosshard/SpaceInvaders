@@ -10,8 +10,8 @@
         <Grid.Background>
             <ImageBrush ImageSource="nebula.png"/>
         </Grid.Background>
-        <Label x:Name="label" Content="GAME OVER" Height="43" Margin="47,23,50.6,0" Width="196" FontSize="24" FontStyle="Italic" FontWeight="Bold" Foreground="#FF00FFF1" BorderBrush="#FF00FFF1" Background="{x:Null}" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
-        <Label x:Name="label1" Content="Press any key to restart" Height="43" Margin="10,99,9.6,0" Width="274" FontSize="24" FontStyle="Italic" FontWeight="Bold" Foreground="#FF00FFF1" BorderBrush="#FF00FFF1" Background="{x:Null}" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
+        <Label x:Name="label" Content="GAME OVER" Height="43" Margin="47,23,50.6,0" Width="196" FontSize="24"  Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3" Background="{x:Null}" HorizontalContentAlignment="Center" VerticalAlignment="Top" FontFamily="Levenim MT"/>
+        <Label x:Name="label1" Content="PRESS ANY KEY TO RESTART" Height="43" Margin="10,99,9.6,0" Width="274" FontSize="18" Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3" Background="{x:Null}" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontFamily="Levenim MT"/>
 
     </Grid>
 </Window>
