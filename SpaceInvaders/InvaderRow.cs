@@ -16,7 +16,7 @@ namespace SpaceInvaders
         private readonly int _invaderHeight = 40;
 
         private readonly NotifyHandler _notifyHandler = NotifyHandler.InstanceCreation();
-        private readonly TimeSpan _speed = new TimeSpan(0, 0, 0, 0, 800);
+        private readonly TimeSpan _speed = new TimeSpan(0, 0, 0, 1, 0);
         private readonly Point _startingPoint = new Point(50, 0);
         private readonly Canvas _canvas;
         private bool _direction;
@@ -131,14 +131,14 @@ namespace SpaceInvaders
                 _top = 0;
                 if (_notifyHandler.Waves == 19)
                 {
-                    _invadersRows = (int) InvaderRows.TwentyToThirty;
+                    _invadersRows = 5;
                     _invaderCountRows = 5;
                     _notifyHandler.Bullets = 100;
                     _notifyHandler.Lives = 3;
                 }
                 else if (_notifyHandler.Waves == 9)
                 {
-                    _invadersRows = (int) InvaderRows.tenToTwenty;
+                    _invadersRows = 3;
                     _invaderCountRows = 5;
                     _notifyHandler.Bullets = 75;
                     _notifyHandler.Lives = 3;
