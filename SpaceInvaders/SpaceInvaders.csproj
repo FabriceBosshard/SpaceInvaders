@@ -62,11 +62,18 @@
     </ApplicationDefinition>
     <Compile Include="converters\InverseBooleanConverter.cs" />
     <Compile Include="Directions.cs" />
+    <Compile Include="GameOver.xaml.cs">
+      <DependentUpon>GameOver.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InvaderRow.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="NotifyPropertyChangedViewModel.cs" />
-    <Compile Include="Score.cs" />
-    <Compile Include="Timer.cs" />
+    <Compile Include="NotifyHandler.cs" />
+    <Compile Include="UIObjects.cs" />
+    <Page Include="GameOver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

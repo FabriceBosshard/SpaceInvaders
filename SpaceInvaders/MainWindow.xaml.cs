@@ -27,21 +27,9 @@ namespace SpaceInvaders
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool right;
-        bool left;
-        int Index = 0;
-        int x;
-
         private bool paused = false;
         private bool pauseKeyDown = false;
         private bool pausedForGuide = false;
-
-        // X Axe from player
-        public int X
-        {
-            get { return x; }
-            set { x = value; }
-        }
 
         public MainWindow()
         {
@@ -57,7 +45,7 @@ namespace SpaceInvaders
         private void StartGame()
         {       
             player = new Player();
-           
+            UIObjects.PlayerList.Add(Player);
             new InvaderRow(Playground);
         }
 
@@ -99,6 +87,10 @@ namespace SpaceInvaders
                         break;
                     case Key.Escape:
                         Environment.Exit(0);
+                        break;
+                    case Key.Enter:
+                        Process.Start(Application.ResourceAssembly.Location);
+                        Application.Current.Shutdown();
                         break;
                 }
 

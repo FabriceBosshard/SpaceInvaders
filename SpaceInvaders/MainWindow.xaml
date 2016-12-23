@@ -22,28 +22,32 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid x:Name="DisplayGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#000000" Grid.Row="0" Grid.ColumnSpan="3">
-            <StackPanel x:Name="DisplayStackPanel" Background="#000000" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="4">
-                <TextBox x:Name="ScoreText" Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="300" TextWrapping="Wrap" Text="SCORE:" VerticalAlignment="Top" Width="296" FontSize="48" FontFamily="Levenim MT" Background="Black"/>
-                <TextBox x:Name="Score" Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3" IsReadOnly="True" TextWrapping="Wrap" Text="0" Width="285" Background="#000000" FontSize="48" FontFamily="Levenim MT" Margin="0,0,0,15.2" Height="75"/>
-                <TextBox x:Name="LivesText" Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="300" TextWrapping="Wrap" Text="LIVES: " VerticalAlignment="Top" Width="322" FontSize="48" FontFamily="Levenim MT" Background="Black"/>
-                <TextBox x:Name="Lives" Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3" IsReadOnly="True" TextWrapping="Wrap" Text="♥ ♥ ♥ " Width="295" Background="#000000" FontSize="48" FontFamily="Levenim MT" Margin="0,0,0,15.2" Height="75"/>
+            <StackPanel  x:Name="DisplayStackPanel" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="4" DataContext="{Binding _notifyHandler}" >
+                <TextBox x:Name="ScoreText" Foreground="#FF00FFF1" IsReadOnly="True"  BorderBrush="#FF00FFF1" HorizontalAlignment="Left" Height="75" TextWrapping="Wrap" Text="Score:" VerticalAlignment="Top" Width="284" FontSize="48" FontFamily="Levenim MT" Background="#000000"/>
+                <TextBox x:Name="Score" IsReadOnly="True"  TextWrapping="Wrap"  BorderBrush="#FF00FFF1" Text="{Binding Score}" Width="289" Background="#000000" FontSize="48" FontFamily="Levenim MT"  Height="92" Foreground="#FF00FFF1"/>
+                <TextBox x:Name="LivesText" IsReadOnly="True" Foreground="#FF00FFF1" BorderBrush="#FF00FFF1"  HorizontalAlignment="Left" Height="75" TextWrapping="Wrap" Text="Lives: " VerticalAlignment="Top" Width="322" FontSize="48" FontFamily="Levenim MT" Background="#000000"/>
+                <TextBox x:Name="Lives" IsReadOnly="True" TextWrapping="Wrap" Text="{Binding Lives}" BorderBrush="#FF00FFF1" Width="295" Background="#000000" FontSize="48" FontFamily="Levenim MT" Height="75" Foreground="#FF00FFF1"/>
             </StackPanel>
         </Grid>
-        <Grid x:Name="LeftGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Row="1" Column="0" Background="#000000">
-            <StackPanel x:Name="ButtonsStackPanel" HorizontalAlignment="Left" VerticalAlignment="Top" Height="697" Background="#000000">
-                <Button x:Name="NewGame" Foreground="#FF5FFFB3" Focusable="False" IsEnabled="{Binding IsPaused, Converter={StaticResource InverseBooleanConverter}}" Content="NEW GAME" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="60" FontFamily="Levenim MT" FontSize="22" Background="Black" BorderBrush="#FF5FFFB3" Click="NewGameButton"/>
-                <Button x:Name="Pause" Foreground="#FF5FFFB3" Focusable="False" Content="❚❚ ►" Command="{Binding ClickCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="60" FontSize="22" Background="Black" BorderBrush="#FF5FFFB3" FontFamily="Arial"/>
-                <Button x:Name="Exit" Foreground="#FF5FFFB3" Focusable="False" Content="EXIT" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="60" FontSize="22" Background="Black" BorderBrush="#FF5FFFB3" Click="ExitButton" FontFamily="Levenim MT"/>
+        <Grid x:Name="LeftGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Row="1" Column="0">
+            <Grid.Background>
+                <ImageBrush ImageSource="nebula.png" Stretch="UniformToFill"/>
+            </Grid.Background>
+            <StackPanel x:Name="ButtonsStackPanel" HorizontalAlignment="Left" VerticalAlignment="Top" Height="697">
+                <Button x:Name="NewGame" Foreground="#FF00FFF1"  Focusable="False" IsEnabled="{Binding IsPaused, Converter={StaticResource InverseBooleanConverter}}" Content="NEW GAME" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="60" FontFamily="Levenim MT" FontSize="22" Background="#000000" BorderBrush="#FF00FFF1" Click="NewGameButton"/>
+                <Button x:Name="Pause" Foreground="#FF00FFF1" Focusable="False" Content="❚❚ ►" Command="{Binding ClickCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="60" FontSize="22" Background="#000000" BorderBrush="#FF00FFF1" FontFamily="Arial"/>
+                <Button x:Name="Exit" Foreground="#FF00FFF1" Focusable="False" Content="EXIT" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="60" FontSize="22" Background="#000000" BorderBrush="#FF00FFF1" Click="ExitButton" FontFamily="Levenim MT"/>
             </StackPanel>
         </Grid>
-        <Grid x:Name="RightGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Row="1" Column="2" Background="#000000">
-            <StackPanel x:Name="InfoStackPanel" HorizontalAlignment="Left" VerticalAlignment="Top" Height="697">
-                <TextBox x:Name="Wave" Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="60" TextWrapping="Wrap" Text="WAVE:" VerticalAlignment="Top" Width="200" FontSize="30" FontFamily="Levenim MT" Background="Black"/>
-                <TextBox x:Name="WaveValue" Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="60" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="200" FontSize="30" FontFamily="Levenim MT" Background="Black"/>
-                <TextBox x:Name="Laser" Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="60" TextWrapping="Wrap" Text="LASER:" VerticalAlignment="Top" Width="200" FontSize="30" FontFamily="Levenim MT" Background="Black"/>
-                <TextBox x:Name="LaserValue" Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="60" TextWrapping="Wrap" Text="∞" VerticalAlignment="Top" Width="200" FontSize="30" FontFamily="Levenim MT" Background="Black" AcceptsTab="True"/>
-                <TextBox x:Name="Rockets" Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="60" TextWrapping="Wrap" Text="ROCKETS:" VerticalAlignment="Top" Width="200" FontSize="30" FontFamily="Levenim MT" Background="Black"/>
-                <TextBox x:Name="RocketsValue" Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="60" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="200" FontSize="30" FontFamily="Levenim MT" Background="Black"/>
+        <Grid x:Name="RightGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Row="1" Column="2">
+            <Grid.Background>
+                <ImageBrush ImageSource="nebula.png" Stretch="UniformToFill"/>
+            </Grid.Background>
+            <StackPanel x:Name="InfoStackPanel" HorizontalAlignment="Left" VerticalAlignment="Top" Height="697" DataContext="{Binding _notifyHandler}">
+                <TextBox x:Name="Wave" BorderBrush="#FF00FFF1"  Foreground="#FF00FFF1" IsReadOnly="True" HorizontalAlignment="Left" Height="60" TextWrapping="Wrap" Text="Wave:" VerticalAlignment="Top" Width="200" FontSize="30" FontFamily="Levenim MT" Background="#000000"/>
+                <TextBox x:Name="WaveValue" BorderBrush="#FF00FFF1"  Foreground="#FF00FFF1" IsReadOnly="True" HorizontalAlignment="Left" Height="60" TextWrapping="Wrap" Text="{Binding Waves}" VerticalAlignment="Top" Width="200" FontSize="30" FontFamily="Levenim MT" Background="#000000"/>
+                <TextBox x:Name="Laser"  BorderBrush="#FF00FFF1" Foreground="#FF00FFF1"  IsReadOnly="True" HorizontalAlignment="Left" Height="60" TextWrapping="Wrap" Text="Laser:" VerticalAlignment="Top" Width="200" FontSize="30" FontFamily="Levenim MT" Background="#000000"/>
+                <TextBox x:Name="LaserValue"  BorderBrush="#FF00FFF1" Foreground="#FF00FFF1"  IsReadOnly="True" HorizontalAlignment="Left" Height="60" TextWrapping="Wrap" Text="{Binding Bullets}"  VerticalAlignment="Top" Width="200" FontSize="30" FontFamily="Levenim MT" Background="#000000" AcceptsTab="True"/>
             </StackPanel>
         </Grid>
         <Grid x:Name="FieldGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Row="1" Column="1">

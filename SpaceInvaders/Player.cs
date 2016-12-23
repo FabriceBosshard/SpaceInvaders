@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Ink;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
@@ -23,9 +28,37 @@ namespace SpaceInvaders
         public Image player;
         private Ellipse laser = Laser.CreateLaser();
         private Point position;
-        private InvaderRow invaderRow = new InvaderRow();
+        readonly NotifyHandler _notifyHandler = NotifyHandler.InstanceCreation();
 
         private DispatcherTimer t;
+        private DispatcherTimer LiveChecker;
+
+        public Player()
+        {
+            LiveChecker = new DispatcherTimer { Interval = new TimeSpan(0,0,0,0,1) };
+            LiveChecker.Tick += UpdateLives;
+            LiveChecker.Start();
+        }
+
+        private void UpdateLives(object sender, EventArgs e)
+        {
+            if (UIObjects.PlayerHasBeenHit)
+            {
+                _notifyHandler.Lives--;
+                UIObjects.PlayerHasBeenHit = false;
+                if (_notifyHandler.Lives == 0)
+                {
+                    Die();
+                }
+            }
+        }
+
+        private void Die()
+        {
+            UIObjects.GameOver = true;
+            GameOver GO = new GameOver();
+            GO.Show();            
+        }
 
         public void ConfigureShoot(Canvas canvas, Image player)
         {
@@ -39,44 +72,41 @@ namespace SpaceInvaders
             Canvas.SetTop(laser, position.Y);
             Canvas.SetLeft(laser, position.X + 50);
             canvas.Children.Add(laser);
+            UIObjects.LaserList.Add(laser);
+            _notifyHandler.Bullets--;
+
+            if (_notifyHandler.Bullets == 0)
+            {
+                Environment.Exit(0);
+            }
 
             t = new DispatcherTimer {Interval = new TimeSpan(10000)};
             t.Tick += Shoot;
             t.Start();
         }
-
+        
         public void Shoot(object sender, EventArgs e)
-        {
+        {            
             position.Y -= bulletSpeed;
             Canvas.SetTop(laser, position.Y);
             Canvas.SetLeft(laser, position.X + 50);
 
-            if (position.Y < 0)
+            UIObjects.CheckCollisionBetweenLaserInvader(canvas);
+
+            if (position.Y < 0 || UIObjects.hasBeenHit)
             {
                 DeleteBullet();
             }
+            
         }
 
         public void DeleteBullet()
         {
             canvas.Children.Remove(laser);
+            UIObjects.LaserList.RemoveAt(0);
             isShooting = false;
-            t.Stop();
-            position.Y = 642;
-        }
-
-        public void Die()
-        {
-
-        }
-
-        public void DecrementLives()
-        {
-            lives--;
-            if (lives == 0)
-            {
-                Die();
-            }
+            UIObjects.hasBeenHit = false;
+            t.Stop();          
         }
     }
 }
