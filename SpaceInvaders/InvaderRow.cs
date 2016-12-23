@@ -46,7 +46,7 @@ namespace SpaceInvaders
                     {
                         Width = _invaderWidth,
                         Height = _invaderHeight,
-                        Source = new BitmapImage(new Uri("invader2.gif", UriKind.Relative))
+                        Source = new BitmapImage(new Uri("invader2.png", UriKind.Relative))
                     };
 
                     if (_invadercount == 0)
@@ -81,7 +81,7 @@ namespace SpaceInvaders
                     {
                         Width = _invaderWidth,
                         Height = _invaderHeight,
-                        Source = new BitmapImage(new Uri("invader2.gif", UriKind.Relative))
+                        Source = new BitmapImage(new Uri("invader2.png", UriKind.Relative))
                     };
 
                     if (_invadercount == 0)
