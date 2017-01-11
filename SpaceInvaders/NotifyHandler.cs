@@ -5,7 +5,7 @@
         private static int _score;
         private static int _wave = 1;
         private static int _lives = 3;
-        private static int _bullets = 50;
+        private static int _bullets = 30;
         private static volatile NotifyHandler _scoreHandlerObject;
         private static readonly object lockingObject = new object();
 

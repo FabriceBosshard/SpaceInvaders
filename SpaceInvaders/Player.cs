@@ -77,7 +77,7 @@ namespace SpaceInvaders
 
             if (_notifyHandler.Bullets == 0)
             {
-                Environment.Exit(0);
+                Die();
             }
 
             t = new DispatcherTimer {Interval = new TimeSpan(10000)};

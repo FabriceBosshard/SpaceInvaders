@@ -28,7 +28,7 @@ namespace SpaceInvaders
         private bool _isBorder;
         private Point _oldPosition;
         private DispatcherTimer _t = new DispatcherTimer();
-        private DispatcherTimer _scoreTimer = new DispatcherTimer();
+        private readonly DispatcherTimer _scoreTimer = new DispatcherTimer();
         private double _top;
         private const int _bulletSpeed = 5;
         private DispatcherTimer _invT;
@@ -70,7 +70,7 @@ namespace SpaceInvaders
             _t.Tick += InvaderRow_Tick;
             _t.Start();
 
-            _scoreTimer.Interval = new TimeSpan(0,0,0,0,100);
+            _scoreTimer.Interval = new TimeSpan(0,0,0,0,500);
             _scoreTimer.Tick += ScoreTimer_Tick;
             _scoreTimer.Start();
         }

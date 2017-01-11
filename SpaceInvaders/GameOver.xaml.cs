@@ -26,8 +26,11 @@ namespace SpaceInvaders
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
             this.KeyDown += NewGame;
+            DataContext = new MainWindowViewModel();
 
         }
+
+        public MainWindowViewModel MainWindowViewModel => DataContext as MainWindowViewModel;
 
         private void NewGame(object sender, KeyEventArgs e)
         {
