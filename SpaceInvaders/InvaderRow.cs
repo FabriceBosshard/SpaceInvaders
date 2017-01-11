@@ -11,7 +11,7 @@ namespace SpaceInvaders
 {
     public class InvaderRow
     {
-        private const double Left = 50;
+        private const double Left = 43;
         private const int _invaderWidth = 40;
         private readonly int _invaderHeight = 40;
 
@@ -46,7 +46,7 @@ namespace SpaceInvaders
                     {
                         Width = _invaderWidth,
                         Height = _invaderHeight,
-                        Source = new BitmapImage(new Uri("invader2.png", UriKind.Relative))
+                        Source = new BitmapImage(new Uri("fabrice.jpg", UriKind.Relative))
                     };
 
                     if (_invadercount == 0)
