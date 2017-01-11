@@ -11,7 +11,7 @@ namespace SpaceInvaders
 {
     public class InvaderRow
     {
-        private const double Left = 43;
+        private const double _left = 40;
         private const int _invaderWidth = 40;
         private readonly int _invaderHeight = 40;
 
@@ -28,12 +28,13 @@ namespace SpaceInvaders
         private bool _isBorder;
         private Point _oldPosition;
         private DispatcherTimer _t = new DispatcherTimer();
+        private DispatcherTimer _scoreTimer = new DispatcherTimer();
         private double _top;
-        private int bulletSpeed = 5;
-        private DispatcherTimer invT;
-        private Ellipse laser;
-        private Point InvaderShootPos;
-        private bool isShooting;
+        private const int _bulletSpeed = 5;
+        private DispatcherTimer _invT;
+        private Ellipse _laser;
+        private Point _invaderShootPos;
+        private bool _isShooting;
 
         public InvaderRow(Canvas canvas)
         {
@@ -46,7 +47,7 @@ namespace SpaceInvaders
                     {
                         Width = _invaderWidth,
                         Height = _invaderHeight,
-                        Source = new BitmapImage(new Uri("fabrice.jpg", UriKind.Relative))
+                        Source = new BitmapImage(new Uri("invader.png", UriKind.Relative))
                     };
 
                     if (_invadercount == 0)
@@ -57,7 +58,7 @@ namespace SpaceInvaders
                     else
                     {
                         Canvas.SetTop(Body, _startingPoint.Y + _top);
-                        Canvas.SetLeft(Body, _startingPoint.X + i*Left);
+                        Canvas.SetLeft(Body, _startingPoint.X + i*_left);
                     }
                     canvas.Children.Add(Body);
                     UIObjects.InvaderList.Add(Body);
@@ -68,6 +69,15 @@ namespace SpaceInvaders
             _t.Interval = _speed;
             _t.Tick += InvaderRow_Tick;
             _t.Start();
+
+            _scoreTimer.Interval = new TimeSpan(0,0,0,0,100);
+            _scoreTimer.Tick += ScoreTimer_Tick;
+            _scoreTimer.Start();
+        }
+
+        private void ScoreTimer_Tick(object sender, EventArgs e)
+        {
+            UpdatePoints();
         }
 
         public void CreateNewWave()
@@ -81,7 +91,7 @@ namespace SpaceInvaders
                     {
                         Width = _invaderWidth,
                         Height = _invaderHeight,
-                        Source = new BitmapImage(new Uri("invader2.png", UriKind.Relative))
+                        Source = new BitmapImage(new Uri("invader.png", UriKind.Relative))
                     };
 
                     if (_invadercount == 0)
@@ -93,7 +103,7 @@ namespace SpaceInvaders
                     else
                     {
                         Canvas.SetTop(Body, _startingPoint.Y + _top);
-                        Canvas.SetLeft(Body, _startingPoint.X + z*Left);
+                        Canvas.SetLeft(Body, _startingPoint.X + z*_left);
                         _canvas.Children.Add(Body);
                     }
                     UIObjects.InvaderList.Add(Body);
@@ -114,8 +124,7 @@ namespace SpaceInvaders
             {
                 CheckCollision(UIObjects.InvaderList);
                 CheckPositionInvaders(UIObjects.InvaderList);
-                UIObjects.checkInvaderCount();
-                UpdatePoints();
+                UIObjects.checkInvaderCount();               
                 CheckOnNewWave();
                 InvaderShoot(UIObjects.InvaderList);
              }
@@ -156,26 +165,26 @@ namespace SpaceInvaders
 
         private void InvaderShoot(List<UIElement> invaders)
         {
-            if (isShooting == false)
+            if (_isShooting == false)
             {
                 Random random = new Random();
                 int rnd = random.Next(0, invaders.Count); 
                 UIElement inv = invaders.ElementAt(rnd);
 
-                laser = InvaderBombs.CreateLaser();
+                _laser = InvaderBombs.CreateLaser();
 
-                InvaderShootPos.Y = Canvas.GetTop(inv);
-                InvaderShootPos.X = Canvas.GetLeft(inv);
+                _invaderShootPos.Y = Canvas.GetTop(inv);
+                _invaderShootPos.X = Canvas.GetLeft(inv);
 
-                Canvas.SetTop(laser, InvaderShootPos.Y + 5);
-                Canvas.SetLeft(laser, InvaderShootPos.X + (_invaderWidth / 2));
-                _canvas.Children.Add(laser);
-                UIObjects.InvaderLaserList.Add(laser);
+                Canvas.SetTop(_laser, _invaderShootPos.Y + 5);
+                Canvas.SetLeft(_laser, _invaderShootPos.X + (_invaderWidth / 2));
+                _canvas.Children.Add(_laser);
+                UIObjects.InvaderLaserList.Add(_laser);
 
-                invT = new DispatcherTimer { Interval = new TimeSpan(10000) };
-                invT.Tick += Shoot;
-                invT.Start();
-                isShooting = true;
+                _invT = new DispatcherTimer { Interval = new TimeSpan(10000) };
+                _invT.Tick += Shoot;
+                _invT.Start();
+                _isShooting = true;
             }
 
 
@@ -183,15 +192,15 @@ namespace SpaceInvaders
 
         private void Shoot(object sender, EventArgs e)
         {
-            InvaderShootPos.Y += bulletSpeed;
+            _invaderShootPos.Y += _bulletSpeed;
 
             
-            Canvas.SetLeft(laser, InvaderShootPos.X + (_invaderWidth / 2));
-            Canvas.SetTop(laser, InvaderShootPos.Y + 5);
+            Canvas.SetLeft(_laser, _invaderShootPos.X + (_invaderWidth / 2));
+            Canvas.SetTop(_laser, _invaderShootPos.Y + 5);
 
             UIObjects.CheckCollisionBetweenInvLaserPlayer(_canvas);
 
-            if (InvaderShootPos.Y > 642 || UIObjects.PlayerHasBeenHit)
+            if (_invaderShootPos.Y > 642 || UIObjects.PlayerHasBeenHit)
             {
                 DeleteBullet();
             }
@@ -199,10 +208,10 @@ namespace SpaceInvaders
 
         private void DeleteBullet()
         {
-            _canvas.Children.Remove(laser);
+            _canvas.Children.Remove(_laser);
             UIObjects.InvaderLaserList.RemoveAt(0);
-            invT.Stop();
-            isShooting = false;
+            _invT.Stop();
+            _isShooting = false;
         }
 
         private void CheckPositionInvaders(List<UIElement> invaders)
