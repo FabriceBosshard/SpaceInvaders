@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,7 +17,7 @@ namespace SpaceInvaders
         private readonly int _invaderHeight = 40;
 
         private readonly NotifyHandler _notifyHandler = NotifyHandler.InstanceCreation();
-        private readonly TimeSpan _speed = new TimeSpan(0, 0, 0, 1, 0);
+        private readonly TimeSpan _speed = new TimeSpan(0, 0, 0, 0, 100);
         private readonly Point _startingPoint = new Point(50, 0);
         private readonly Canvas _canvas;
         private bool _direction;
@@ -70,7 +71,7 @@ namespace SpaceInvaders
             _t.Tick += InvaderRow_Tick;
             _t.Start();
 
-            _scoreTimer.Interval = new TimeSpan(0,0,0,0,500);
+            _scoreTimer.Interval = new TimeSpan(0,0,0,0,300);
             _scoreTimer.Tick += ScoreTimer_Tick;
             _scoreTimer.Start();
         }
@@ -223,8 +224,13 @@ namespace SpaceInvaders
                     X = Canvas.GetLeft(inv),
                     Y = Canvas.GetTop(inv)
                 };
-                if (invaderPosition.Y > 600)
-                    Environment.Exit(0);
+                if (invaderPosition.Y > 400)
+                {
+                    UIObjects.GameOver = true;
+                    GameOver GO = new GameOver();
+                    GO.Show();
+                }
+                    
             }
         }
 

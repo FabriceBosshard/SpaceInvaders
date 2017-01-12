@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpaceInvaders"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance local:MainWindowViewModel}"
         Title="GameOver" Height="300" Width="300">
-    <Grid>
+    <Grid >
         <Grid.Background>
             <ImageBrush ImageSource="nebula.png"/>
         </Grid.Background>
         <Label x:Name="label" Content="GAME OVER" Height="43" Margin="47,23,50.6,0" Width="196" FontSize="24"  Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3" Background="{x:Null}" HorizontalContentAlignment="Center" VerticalAlignment="Top" FontFamily="Levenim MT"/>
-        <Label x:Name="label1" Content="PRESS ANY KEY TO RESTART" Height="43" Margin="10,207,9.6,0" Width="274" FontSize="18" Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3" Background="{x:Null}" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontFamily="Levenim MT"/>
-        <Label x:Name="label2" Content="Your Score:" Height="43" HorizontalAlignment="Left" Margin="18,108,0,0" Foreground="#FF5FFFB3" VerticalAlignment="Top" Width="105" FontSize="18"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="43" Margin="128,108,0,0" TextWrapping="Wrap" Foreground="#FF5FFFB3" Text="{Binding Score}" VerticalAlignment="Top" Width="146"/>
+        <Label x:Name="label1" Content="PRESS ANY KEY TO RESTART" Height="43" Margin="11,195,8.6,0" Width="274" FontSize="18" Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3" Background="{x:Null}" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontFamily="Levenim MT"/>
+        <Label x:Name="label2" Content="Your Score:" Height="43" HorizontalAlignment="Left" Margin="81,108,0,0" Foreground="#FF5FFFB3" VerticalAlignment="Top" Width="105" FontSize="18"/>
+        <TextBox x:Name="Score" HorizontalAlignment="Left" DataContext="{Binding NotifyHandler}" Text="{Binding Score}" Height="43" Margin="162,104,0,0" Foreground="#FF5FFFB3" VerticalAlignment="Top" Width="81" FontSize="18" Background="{x:Null}" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="{x:Null}"/>
 
     </Grid>
 </Window>

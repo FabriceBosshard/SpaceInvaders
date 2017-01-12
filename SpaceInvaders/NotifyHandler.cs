@@ -62,7 +62,6 @@
         }
         public static NotifyHandler InstanceCreation()
         {
-            _score = 0;
             if (_scoreHandlerObject == null)
                 lock (lockingObject)
                 {

@@ -38,15 +38,16 @@ namespace SpaceInvaders
             StartGame();
             Playground.Focus();
             DataContext = new MainWindowViewModel();
-
+            MainWindowViewModel.Left = 397;
         }
         public MainWindowViewModel MainWindowViewModel => DataContext as MainWindowViewModel;
 
         private void StartGame()
-        {       
+        {           
             player = new Player();
             UIObjects.PlayerList.Add(Player);
             new InvaderRow(Playground);
+            
         }
 
         private void NewGameButton(object sender, RoutedEventArgs e)

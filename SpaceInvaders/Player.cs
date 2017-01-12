@@ -37,7 +37,7 @@ namespace SpaceInvaders
         {
             LiveChecker = new DispatcherTimer { Interval = new TimeSpan(0,0,0,0,1) };
             LiveChecker.Tick += UpdateLives;
-            LiveChecker.Start();
+            LiveChecker.Start();            
         }
 
         private void UpdateLives(object sender, EventArgs e)
@@ -50,6 +50,7 @@ namespace SpaceInvaders
                 {
                     Die();
                 }
+
             }
         }
 
