@@ -16,10 +16,10 @@ namespace SpaceInvaders
         {
             IsPaused = false;
             ClickCommand = new DelegateCommand(Pause);
-            _notifyHandler = NotifyHandler.InstanceCreation();
+            NotifyHandler = NotifyHandler.InstanceCreation();
         }
 
-        public NotifyHandler _notifyHandler { get; set; }
+        public NotifyHandler NotifyHandler { get; set; }
 
         public bool IsPaused
         {
