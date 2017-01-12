@@ -17,7 +17,7 @@ namespace SpaceInvaders
         private readonly int _invaderHeight = 40;
 
         private readonly NotifyHandler _notifyHandler = NotifyHandler.InstanceCreation();
-        private readonly TimeSpan _speed = new TimeSpan(0, 0, 0, 0, 100);
+        private readonly TimeSpan _speed = new TimeSpan(0, 0, 0, 1, 0);
         private readonly Point _startingPoint = new Point(50, 0);
         private readonly Canvas _canvas;
         private bool _direction;
