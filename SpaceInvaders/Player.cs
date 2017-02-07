@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -25,8 +26,12 @@ namespace SpaceInvaders
         private Canvas canvas = null;
         private Point currentPositionLaser;
         public bool isShooting = false;
+        public bool isShootingBomb = false;
+        public bool hasNoBombs;
+        public int bombs;
         public Image player;
         private Ellipse laser = Laser.CreateLaser();
+        private Ellipse bomb = Laser.CreateBomb();
         private Point position;
         readonly NotifyHandler _notifyHandler = NotifyHandler.InstanceCreation();
 
@@ -107,6 +112,54 @@ namespace SpaceInvaders
             isShooting = false;
             UIObjects.hasBeenHit = false;
             t.Stop();          
+        }
+
+        public void ConfigureBomb(Canvas canvas, Image player)
+        {
+            isShootingBomb = true;
+
+            this.canvas = canvas;
+            this.player = player;
+
+            position.X = Canvas.GetLeft(player);
+            position.Y = Canvas.GetTop(player);
+
+            Canvas.SetTop(bomb, position.Y);
+            Canvas.SetLeft(bomb, position.X + 50);
+            canvas.Children.Add(bomb);
+            UIObjects.BombList.Add(bomb);
+            _notifyHandler.Bombs--;
+
+            t = new DispatcherTimer { Interval = new TimeSpan(10000) };
+            t.Tick += ShootBomb;
+            t.Start();
+            if (_notifyHandler.Bombs == 0)
+            {
+                hasNoBombs = true;
+            }
+        }
+
+        private void ShootBomb(object sender, EventArgs e)
+        {
+            position.Y -= bulletSpeed;
+            Canvas.SetTop(bomb, position.Y);
+            Canvas.SetLeft(bomb, position.X + 50);
+
+            UIObjects.CheckCollisionBetweenBombInvader(canvas);
+
+            if (position.Y < 0 || UIObjects.hasBeenHit)
+            {
+                DeleteBomb();
+            }
+        }
+
+        private void DeleteBomb()
+        {
+            canvas.Children.Remove(bomb);
+            UIObjects.BombList.RemoveAt(0);
+            isShootingBomb = false;
+            UIObjects.hasBeenHit = false;
+            t.Stop();
         }
     }
 }

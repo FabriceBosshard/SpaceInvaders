@@ -150,9 +150,12 @@ namespace SpaceInvaders
                 {
                     _invadersRows = 3;
                     _invaderCountRows = 5;
-                    _notifyHandler.Bullets = 75;
                     _notifyHandler.Lives = 3;
                 }
+                else if (_notifyHandler.Waves % 5 == 0)
+                {
+                    _notifyHandler.Bombs = 3;
+                }               
                 else
                 {
                     _invaderCountRows += 1;                   

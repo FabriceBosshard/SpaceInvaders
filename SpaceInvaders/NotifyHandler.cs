@@ -6,6 +6,7 @@
         private static int _wave = 1;
         private static int _lives = 3;
         private static int _bullets = 30;
+        private static int _bombs = 3;
         private static volatile NotifyHandler _scoreHandlerObject;
         private static readonly object lockingObject = new object();
 
@@ -21,6 +22,18 @@
                 {
                     _lives = value;
                     OnPropertyChanged(nameof(Lives));
+                }
+            }
+        }
+        public int Bombs
+        {
+            get { return _bombs; }
+            set
+            {
+                if (_bombs != value)
+                {
+                    _bombs = value;
+                    OnPropertyChanged(nameof(Bombs));
                 }
             }
         }
@@ -60,6 +73,9 @@
                 }
             }
         }
+
+        
+
         public static NotifyHandler InstanceCreation()
         {
             if (_scoreHandlerObject == null)

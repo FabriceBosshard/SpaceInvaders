@@ -42,6 +42,8 @@
                 <TextBox x:Name="WaveValue" BorderBrush="#FF5FFFB3" Foreground="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="60" TextWrapping="Wrap" Text="{Binding Waves}" VerticalAlignment="Top" Width="200" FontSize="30" FontFamily="Levenim MT" Background="#000000"/>
                 <TextBox x:Name="Laser"  BorderBrush="#FF5FFFB3" Foreground="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="60" TextWrapping="Wrap" Text="LASER:" VerticalAlignment="Top" Width="200" FontSize="30" FontFamily="Levenim MT" Background="#000000"/>
                 <TextBox x:Name="LaserValue"  BorderBrush="#FF5FFFB3" Foreground="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="60" TextWrapping="Wrap" Text="{Binding Bullets}"  VerticalAlignment="Top" Width="200" FontSize="30" FontFamily="Levenim MT" Background="#000000" AcceptsTab="True"/>
+                <TextBox x:Name="Bomb"  BorderBrush="#FF5FFFB3" Foreground="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="60" TextWrapping="Wrap" Text="Bombs:" VerticalAlignment="Top" Width="200" FontSize="30" FontFamily="Levenim MT" Background="#000000"/>
+                <TextBox x:Name="BombValue"  BorderBrush="#FF5FFFB3" Foreground="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="60" TextWrapping="Wrap" Text="{Binding Bombs}"  VerticalAlignment="Top" Width="200" FontSize="30" FontFamily="Levenim MT" Background="#000000" AcceptsTab="True"/>
             </StackPanel>
         </Grid>
         <Grid x:Name="FieldGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Row="1" Column="1">

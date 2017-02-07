@@ -23,5 +23,16 @@ namespace SpaceInvaders
             };
             return laser;
         }
+
+        public static Ellipse CreateBomb()
+        {
+            Ellipse bomb = new Ellipse()
+            {
+                Height = 15,
+                Width = 15,
+                Fill = Brushes.Yellow
+            };
+            return bomb;
+        }
     }
 }

@@ -14,12 +14,14 @@ namespace SpaceInvaders
     {
         public static List<UIElement> InvaderList = new List<UIElement>();
         public static List<UIElement> LaserList = new List<UIElement>();
+        public static List<UIElement> BombList = new List<UIElement>();
         public static List<UIElement> PlayerList = new List<UIElement>();
         public static List<UIElement> InvaderLaserList = new List<UIElement>();
         public static bool hasBeenHit;
         public static bool updatePoints;
         public static bool newWave;
         public static bool PlayerHasBeenHit { get; set; }
+
         public static bool GameOver;
 
         public static void CheckCollisionBetweenLaserInvader(Canvas canvas)
@@ -48,6 +50,24 @@ namespace SpaceInvaders
                 }
             }            
         }
+       public static void CheckCollisionBetweenBombInvader(Canvas canvas)
+        {
+            for (int i = 0; i < InvaderList.Count; i++)
+            {
+                UIElement inv = InvaderList.ElementAt(i);
+                Point Invaderposition = new Point()
+                {
+                    X = Canvas.GetLeft(inv),
+                    Y = Canvas.GetTop(inv)
+                };
+                Point BombPosition = new Point()
+                {
+                    X = Canvas.GetLeft(BombList.ElementAt(0)),
+                    Y = Canvas.GetTop(BombList.ElementAt(0))
+                };
+               
+            }
+        }
 
         public static void CheckCollisionBetweenInvLaserPlayer(Canvas canvas)
         {
@@ -65,12 +85,6 @@ namespace SpaceInvaders
                     X = Canvas.GetLeft(InvaderLaserList.ElementAt(0)),
                     Y = Canvas.GetTop(InvaderLaserList.ElementAt(0))
                 };
-
-                //Fromel Stimmt noch nicht genau
-                //if ((Math.Abs(PlayerPosition.X - Laserposition.X) < 100) && (Math.Abs(PlayerPosition.Y - Laserposition.Y) < 100))
-                //{
-                //    PlayerHasBeenHit = true;
-                //}
                 if ((Math.Abs(Laserposition.X - (PlayerPosition.X + 50))) < 50 && (Math.Abs(Laserposition.Y -  PlayerPosition.Y) < 15))
                 {
                     PlayerHasBeenHit = true;

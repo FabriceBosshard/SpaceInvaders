@@ -71,9 +71,15 @@ namespace SpaceInvaders
                 switch (e.Key)
                 {
                     case Key.Space:
-                        if (!player.isShooting)
+                        if (!player.isShooting && !player.isShootingBomb)
                         {
                             player.ConfigureShoot(Playground, Player);
+                        }
+                        break;
+                    case Key.B:
+                        if (!player.isShooting && !player.isShootingBomb && !player.hasNoBombs)
+                        {
+                            player.ConfigureBomb(Playground, Player);
                         }
                         break;
                     case Key.Left:
