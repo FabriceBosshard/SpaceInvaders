@@ -139,6 +139,12 @@ namespace SpaceInvaders
                 UIObjects.InvaderList.Clear();
                 _t.Stop();
                 _top = 0;
+                if (_notifyHandler.Waves == 30)
+                {
+                    UIObjects.GameOver = true;
+                    GameOver GO = new GameOver();
+                    GO.Show();
+                }
                 if (_notifyHandler.Waves == 19)
                 {
                     _invadersRows = 5;
@@ -150,16 +156,17 @@ namespace SpaceInvaders
                 {
                     _invadersRows = 3;
                     _invaderCountRows = 5;
+                    _notifyHandler.Bullets = 75;
                     _notifyHandler.Lives = 3;
-                }
-                else if (_notifyHandler.Waves % 5 == 0)
-                {
-                    _notifyHandler.Bombs = 3;
-                }               
+                }                           
                 else
                 {
                     _invaderCountRows += 1;                   
                     _notifyHandler.Bullets = 50;
+                }
+                if (_notifyHandler.Waves % 5 == 0)
+                {
+                    _notifyHandler.Bombs = 3;
                 }
                 _notifyHandler.Waves += 1;
                 UIObjects.newWave = false;

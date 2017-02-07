@@ -85,12 +85,16 @@ namespace SpaceInvaders
                     case Key.Left:
                     case Key.A:
                     case Key.NumPad4:
-                        MainWindowViewModel.Move(DirectionPlayer.Left);
+                        //MainWindowViewModel.Move(DirectionPlayer.Left);
+                        if (MainWindowViewModel.previousDirection != (int)DirectionPlayer.Right)
+                            MainWindowViewModel.direction = (int)DirectionPlayer.Left;
                         break;
                     case Key.Right:
                     case Key.D:
                     case Key.NumPad6:
-                        MainWindowViewModel.Move(DirectionPlayer.Right);
+                        //MainWindowViewModel.Move(DirectionPlayer.Right);
+                        if (MainWindowViewModel.previousDirection != (int)DirectionPlayer.Left)
+                            MainWindowViewModel.direction = (int)DirectionPlayer.Right;
                         break;
                     case Key.Escape:
                         Environment.Exit(0);

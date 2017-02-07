@@ -8,7 +8,8 @@ namespace SpaceInvaders
 {
     public enum DirectionPlayer
     {
-        Left, Right
+        Left = 1,
+        Right = 2
     }
 
     public enum InvaderRows
