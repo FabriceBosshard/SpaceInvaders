@@ -3,7 +3,7 @@
     public class NotifyHandler : NotifyPropertyChangedViewModel
     {
         private static int _score;
-        private static int _wave = 1;
+        private static int _wave = 2;
         private static int _lives = 3;
         private static int _bullets = 30;
         private static int _bombs = 3;

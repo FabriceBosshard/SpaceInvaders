@@ -116,26 +116,25 @@ namespace SpaceInvaders
 
         public void ConfigureBomb(Canvas canvas, Image player)
         {
-            isShootingBomb = true;
-
-            this.canvas = canvas;
-            this.player = player;
-
-            position.X = Canvas.GetLeft(player);
-            position.Y = Canvas.GetTop(player);
-
-            Canvas.SetTop(bomb, position.Y);
-            Canvas.SetLeft(bomb, position.X + 50);
-            canvas.Children.Add(bomb);
-            UIObjects.BombList.Add(bomb);
-            _notifyHandler.Bombs--;
-
-            t = new DispatcherTimer { Interval = new TimeSpan(10000) };
-            t.Tick += ShootBomb;
-            t.Start();
-            if (_notifyHandler.Bombs == 0)
+            if (_notifyHandler.Bombs != 0)
             {
-                hasNoBombs = true;
+                isShootingBomb = true;
+
+                this.canvas = canvas;
+                this.player = player;
+
+                position.X = Canvas.GetLeft(player);
+                position.Y = Canvas.GetTop(player);
+
+                Canvas.SetTop(bomb, position.Y);
+                Canvas.SetLeft(bomb, position.X + 50);
+                canvas.Children.Add(bomb);
+                UIObjects.BombList.Add(bomb);
+                _notifyHandler.Bombs--;
+
+                t = new DispatcherTimer { Interval = new TimeSpan(10000) };
+                t.Tick += ShootBomb;
+                t.Start();
             }
         }
 

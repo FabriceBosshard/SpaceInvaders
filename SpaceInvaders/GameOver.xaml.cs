@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,10 +23,10 @@ namespace SpaceInvaders
     public partial class GameOver : Window
     {
         public GameOver()
-        {
+        {            
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
-            this.KeyDown += NewGame;
+            this.KeyUp += NewGame;
             DataContext = new MainWindowViewModel();
 
         }
@@ -34,6 +35,7 @@ namespace SpaceInvaders
 
         private void NewGame(object sender, KeyEventArgs e)
         {
+            Thread.Sleep(3000);
             Process.Start(Application.ResourceAssembly.Location);
             Application.Current.Shutdown();
             UIObjects.GameOver = false;

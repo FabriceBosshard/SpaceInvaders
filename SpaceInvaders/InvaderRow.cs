@@ -78,7 +78,7 @@ namespace SpaceInvaders
 
         private void ScoreTimer_Tick(object sender, EventArgs e)
         {
-            UpdatePoints();
+            UpdatePoints(UIObjects.InvaderHitFromBomb);
         }
 
         public void CreateNewWave()
@@ -244,13 +244,11 @@ namespace SpaceInvaders
             }
         }
 
-        private void UpdatePoints()
-        {
-            if (UIObjects.updatePoints)
-            {
-                _notifyHandler.Score += _hitPoints;
-                UIObjects.updatePoints = false;
-            }
+        private void UpdatePoints(List<UIElement> invadersHit )
+        {   
+            _notifyHandler.Score += (_hitPoints * invadersHit.Count);
+            UIObjects.InvaderHitFromBomb.Clear();
+
         }
 
         public bool CheckCollisionWithBorderRight(UIElement inv)
