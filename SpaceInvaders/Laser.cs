@@ -34,5 +34,6 @@ namespace SpaceInvaders
             };
             return bomb;
         }
+        
     }
 }
