@@ -37,7 +37,10 @@ namespace SpaceInvaders
         readonly NotifyHandler _notifyHandler = NotifyHandler.InstanceCreation();
 
         private DispatcherTimer t;
+
+        
         private DispatcherTimer LiveChecker;
+
 
         public Player()
         {
@@ -71,6 +74,7 @@ namespace SpaceInvaders
             isShooting = true;
             this.canvas = canvas;
             this.player = player;
+            
 
             position.X = Canvas.GetLeft(player);
             position.Y = Canvas.GetTop(player);
