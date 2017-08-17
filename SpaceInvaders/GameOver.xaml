@@ -9,7 +9,7 @@
         Title="GameOver" Height="300" Width="300">
     <Grid >
         <Grid.Background>
-            <ImageBrush ImageSource="nebula.png"/>
+            <ImageBrush ImageSource="Gamefield/nebula.png"/>
         </Grid.Background>
         <Label x:Name="label" Content="GAME OVER" Height="43" Margin="47,23,50.6,0" Width="196" FontSize="24"  Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3" Background="{x:Null}" HorizontalContentAlignment="Center" VerticalAlignment="Top" FontFamily="Levenim MT"/>
         <Label x:Name="label1" Content="PRESS ANY KEY TO RESTART" Height="43" Margin="11,195,8.6,0" Width="274" FontSize="18" Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3" Background="{x:Null}" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontFamily="Levenim MT"/>

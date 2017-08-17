@@ -73,8 +73,61 @@
                 }
             }
         }
+        private int _goldAmount;
+        private int _supernovaCount;
+        private int _vBombCount;
+        private int _apokalypsecount;
 
-        
+        public int GoldAmount
+        {
+            get { return _goldAmount; }
+            set
+            {
+                if (_goldAmount != value)
+                {
+                    _goldAmount = value;
+                    OnPropertyChanged(nameof(GoldAmount));
+                }
+            }
+        }
+        public int Apokalypsecount
+        {
+            get { return _apokalypsecount; }
+            set
+            {
+                if (_apokalypsecount != value)
+                {
+                    _apokalypsecount = value;
+                    OnPropertyChanged(nameof(Apokalypsecount));
+                }
+            }
+        }
+        public int VBombCount
+        {
+            get { return _vBombCount; }
+            set
+            {
+                if (_vBombCount != value)
+                {
+                    _vBombCount = value;
+                    OnPropertyChanged(nameof(VBombCount));
+                }
+            }
+        }
+        public int SupernovaCount
+        {
+            get { return _supernovaCount; }
+            set
+            {
+                if (_supernovaCount != value)
+                {
+                    _supernovaCount = value;
+                    OnPropertyChanged(nameof(SupernovaCount));
+                }
+            }
+        }
+
+
 
         public static NotifyHandler InstanceCreation()
         {

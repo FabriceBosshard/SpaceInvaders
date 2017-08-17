@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Prism, Version=6.2.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.2.1\lib\net45\Prism.dll</HintPath>
       <Private>True</Private>
@@ -60,16 +64,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Board.xaml.cs">
+      <DependentUpon>Board.xaml</DependentUpon>
+    </Compile>
     <Compile Include="converters\InverseBooleanConverter.cs" />
-    <Compile Include="Directions.cs" />
+    <Compile Include="PlayerStuff\Directions.cs" />
     <Compile Include="GameOver.xaml.cs">
       <DependentUpon>GameOver.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InvaderRow.cs" />
-    <Compile Include="MainWindowViewModel.cs" />
-    <Compile Include="NotifyPropertyChangedViewModel.cs" />
-    <Compile Include="NotifyHandler.cs" />
-    <Compile Include="UIObjects.cs" />
+    <Compile Include="InvaderStuff\InvaderRow.cs" />
+    <Compile Include="Gamefield\MainWindowViewModel.cs" />
+    <Compile Include="Gamefield\NotifyPropertyChangedViewModel.cs" />
+    <Compile Include="Gamefield\NotifyHandler.cs" />
+    <Compile Include="Gamefield\UIObjects.cs" />
+    <Compile Include="ShopView.xaml.cs">
+      <DependentUpon>ShopView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shop\ShopValues.cs" />
+    <Compile Include="Shop\TempShopValue.cs" />
+    <Page Include="Board.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GameOver.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -82,15 +98,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="InvaderBombs.cs" />
-    <Compile Include="Laser.cs" />
+    <Compile Include="InvaderStuff\InvaderBombs.cs" />
+    <Compile Include="PlayerStuff\Laser.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ShopView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Player.cs" />
+    <Compile Include="PlayerStuff\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -114,29 +134,47 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Shop\Shop.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Spaceship-PNG-File.png" />
+    <Resource Include="PlayerStuff\Spaceship-PNG-File.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="nebula.png" />
+    <Resource Include="Gamefield\nebula.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="invader2.png" />
+    <Resource Include="InvaderStuff\invader2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="invader1.png" />
+    <Resource Include="InvaderStuff\invader1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="invader.png" />
+    <Resource Include="InvaderStuff\invader.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Gamefield\marble.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PlayerStuff\supernova.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PlayerStuff\blackhole.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PlayerStuff\apokalypse.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties Shop_4Shop_1json__JSONSchema="http://json.schemastore.org/config" />
+    </VisualStudio>
+  </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

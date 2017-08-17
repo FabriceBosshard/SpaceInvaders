@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Prism.Commands;
+using SpaceInvaders.Shop;
 
 
 namespace SpaceInvaders
@@ -31,82 +32,27 @@ namespace SpaceInvaders
         private bool pauseKeyDown = false;
         private bool pausedForGuide = false;
 
+
         public MainWindow()
         {
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
-            StartGame();
-            Playground.Focus();
-            DataContext = new MainWindowViewModel();
-            MainWindowViewModel.Left = 397;
-        }
-        public MainWindowViewModel MainWindowViewModel => DataContext as MainWindowViewModel;
-
-        private void StartGame()
-        {           
-            player = new Player();
-            UIObjects.PlayerList.Add(Player);
-            new InvaderRow(Playground);
-            
+            ShopValues.LoadFromJson();
         }
 
-        private void NewGameButton(object sender, RoutedEventArgs e)
+        private void button_Click(object sender, RoutedEventArgs e)
         {
-            StartGame();
-
-            Process.Start(Application.ResourceAssembly.Location);
-            Application.Current.Shutdown();
+            Board b = new Board();
+            b.Show();
+            this.Close();
         }
 
-        private void ExitButton(object sender, RoutedEventArgs e)
+        private void shop_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            ShopView s = new ShopView();
+            s.Show();
+            this.Close();
         }
-
-        private void OnKeyDown(object sender, KeyEventArgs e)
-        {
-
-            if (!MainWindowViewModel.IsPaused)
-            {
-                switch (e.Key)
-                {
-                    case Key.Space:
-                        if (!player.isShooting && !player.isShootingBomb)
-                        {
-                            player.ConfigureShoot(Playground, Player);
-                        }
-                        break;
-                    case Key.B:
-                        if (!player.isShooting && !player.isShootingBomb && !player.hasNoBombs)
-                        {
-                            player.ConfigureBomb(Playground, Player);
-                        }
-                        break;
-                    case Key.Left:
-                    case Key.A:
-                    case Key.NumPad4:
-                        //MainWindowViewModel.Move(DirectionPlayer.Left);
-                        if (MainWindowViewModel.previousDirection != (int)DirectionPlayer.Right)
-                            MainWindowViewModel.direction = (int)DirectionPlayer.Left;
-                        break;
-                    case Key.Right:
-                    case Key.D:
-                    case Key.NumPad6:
-                        //MainWindowViewModel.Move(DirectionPlayer.Right);
-                        if (MainWindowViewModel.previousDirection != (int)DirectionPlayer.Left)
-                            MainWindowViewModel.direction = (int)DirectionPlayer.Right;
-                        break;
-                    case Key.Escape:
-                        Environment.Exit(0);
-                        break;
-                    case Key.Enter:
-                        Process.Start(Application.ResourceAssembly.Location);
-                        Application.Current.Shutdown();
-                        break;
-                }
-
-            }
-        }
-        private Player player;
     }
+
 }

@@ -15,6 +15,7 @@ namespace SpaceInvaders
         public static List<UIElement> InvaderList = new List<UIElement>();
         public static List<UIElement> LaserList = new List<UIElement>();
         public static List<UIElement> BombList = new List<UIElement>();
+        public static List<UIElement> SpecialsList = new List<UIElement>();
         public static List<UIElement> PlayerList = new List<UIElement>();
         public static List<UIElement> InvaderLaserList = new List<UIElement>();
         public static List<UIElement> InvaderHitFromBomb = new List<UIElement>();
@@ -51,7 +52,7 @@ namespace SpaceInvaders
                 }
             }            
         }
-        public static void CheckCollisionBetweenBombInvader(Canvas canvas)
+        public static void CheckCollisionBetweenSuperLaserInvader(Canvas canvas)
         {
             for (int i = 0; i < InvaderList.Count; i++)
             {
@@ -66,8 +67,8 @@ namespace SpaceInvaders
                     X = Canvas.GetLeft(BombList.ElementAt(0)),
                     Y = Canvas.GetTop(BombList.ElementAt(0))
                 };
-
-                if ((Math.Abs(BombPosition.X - (Invaderposition.X + 20))) < 60 && (Math.Abs(BombPosition.Y - (Invaderposition.Y - 20)) < 60))
+                //Make 2 in the widht and endless in the height
+                if ((Math.Abs(BombPosition.X - (Invaderposition.X + 20))) < 35 && (Math.Abs(BombPosition.Y - (Invaderposition.Y - 20)) < 35))
                 {
                     InvaderList.Remove(inv);
                     canvas.Children.Remove(inv);                    
@@ -108,6 +109,22 @@ namespace SpaceInvaders
                 InvaderList.Clear();
                 Thread.Sleep(1000);
             }
+        }
+
+        public static void CheckCollisionBetweenVBombInvader(Canvas canvas)
+        {
+            //Max of 12 invaders hit
+            // x x x x x x
+            // x x x x x x
+        }
+        public static void CheckCollisionBetweenSuperNovaInvader(Canvas canvas)
+        {
+            
+        }
+
+        public static void CheckCollisionBetweenApokalypseInvader(Canvas canvas)
+        {
+            
         }
     }
 }

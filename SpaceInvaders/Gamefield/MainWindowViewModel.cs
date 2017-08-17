@@ -6,7 +6,7 @@ namespace SpaceInvaders
 {
     public class MainWindowViewModel : NotifyPropertyChangedViewModel
     {
-        private const int Speed = 5;
+        private const int Speed = 6;
 
         private bool _isPaused;
         private double _left;
@@ -45,6 +45,20 @@ namespace SpaceInvaders
                         {
                             Left += Speed;
                         }
+                        break;
+                    case (int)DirectionPlayer.Up:
+                        if (Top - Speed > 350)
+                        {
+                            Top -= Speed;
+                        }
+                        break;
+                    case (int)DirectionPlayer.Down:                       
+                        if (Top + Speed < 581)
+                        {
+                            Top += Speed;
+                        }
+                        break;
+                    case (int)DirectionPlayer.Standing:
                         break;
                 }
             }
