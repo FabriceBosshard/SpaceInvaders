@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -17,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Microsoft.Win32;
 using Prism.Commands;
 using SpaceInvaders.Shop;
 
@@ -31,6 +33,7 @@ namespace SpaceInvaders
         private bool paused = false;
         private bool pauseKeyDown = false;
         private bool pausedForGuide = false;
+        MainWindowViewModel _mh = MainWindowViewModel.InstanceCreation();
 
 
         public Board()
@@ -39,10 +42,22 @@ namespace SpaceInvaders
             InitializeComponent();
             StartGame();
             Playground.Focus();
-            DataContext = new MainWindowViewModel();
+            DataContext = _mh;
             MainWindowViewModel.Left = 397;
-            MainWindowViewModel.Top = 581;          
+            MainWindowViewModel.Top = 581;
+            this.Closing += OnClosing;
+            MainWindowViewModel.NotifyHandler.Waves = 1;
+            MainWindowViewModel.NotifyHandler.Lives = 3 + MainWindowViewModel.NotifyHandler.LivesExceed;
+            MainWindowViewModel.NotifyHandler.Score = 0;
+            MainWindowViewModel.NotifyHandler.Bombs = 3;
+            MainWindowViewModel.NotifyHandler.Bullets = 75;
         }
+
+        private void OnClosing(object sender, CancelEventArgs cancelEventArgs)
+        {
+            ShopValues.saveToJson();           
+        }
+
         public MainWindowViewModel MainWindowViewModel => DataContext as MainWindowViewModel;
 
         private void StartGame()
@@ -55,15 +70,22 @@ namespace SpaceInvaders
 
         private void NewGameButton(object sender, RoutedEventArgs e)
         {
+            ShopValues.saveToJson();
+            MainWindow a = new MainWindow();           
+            a.Show();
+            this.Close();
             StartGame();
-
             Process.Start(Application.ResourceAssembly.Location);
             Application.Current.Shutdown();
         }
 
         private void ExitButton(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            ShopValues.saveToJson();
+            MainWindow a = new MainWindow();
+            
+            a.Show();
+            this.Close();
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
@@ -132,36 +154,41 @@ namespace SpaceInvaders
                             MainWindowViewModel.direction = (int)DirectionPlayer.Down;
                         break;
                     case Key.Escape:
-                        MainWindow a = new MainWindow();
+                        ShopValues.saveToJson();
+                        MainWindow a = new MainWindow();                      
                         a.Show();
                         this.Close();
                         break;
                     case Key.Enter:
+                        ShopValues.saveToJson();
                         Process.Start(Application.ResourceAssembly.Location);
                         Application.Current.Shutdown();
+                        break;
+                    case Key.P:
+                        _mh.ClickCommand.Execute();
                         break;
                 }
 
             }
         }
 
-        private bool checkBombs()
-        {
-            if (!player.isShootingVBomb && !player.isShootingBomb)
-            {
-                return true;
-            }
-            return false;
-        }
+        //private bool checkBombs()
+        //{
+        //    if (!player.isShootingVBomb && !player.isShootingBomb)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
-        private bool checkSpecials()
-        {
-            if (!player.isShootingSuperNova && !player.isShootingApokalypse)
-            {
-                return true;
-            }
-            return false;
-        }
+        //private bool checkSpecials()
+        //{
+        //    if (!player.isShootingSuperNova && !player.isShootingApokalypse)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
         private bool checkShootings()
         {

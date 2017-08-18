@@ -5,39 +5,71 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.TextFormatting;
 using Newtonsoft.Json;
 
 namespace SpaceInvaders.Shop
 {
     static class ShopValues
     {
+        static NotifyHandler nh = NotifyHandler.InstanceCreation();
+        private static int _highscore;
+        private static int _waveScore;
 
         public static void LoadFromJson()
         {
-            string obj = File.ReadAllText(@"C:\Users\A639359\Documents\GitHub\SpaceInvaders\SpaceInvaders\Shop\Shop.json");
+            string obj = File.ReadAllText(@"..\\..\\Shop\\Shop.json");
             TempShopValue temp = JsonConvert.DeserializeObject<TempShopValue>(obj);
-            NotifyHandler nh = NotifyHandler.InstanceCreation();
+            nh = NotifyHandler.InstanceCreation();
             nh.VBombCount = temp.VBombCount;
             nh.Apokalypsecount = temp.Apokalypsecount;
             nh.GoldAmount = temp.GoldAmount;
             nh.SupernovaCount = temp.SupernovaCount;
+            nh.HighestScore = temp.HighestScore;
+            _highscore = temp.HighestScore;
+            nh.WaveHighScore = temp.WaveHighScore;
+            _waveScore = temp.WaveHighScore;
+            nh.LivesExceed = temp.Lives;
 
-            Debug.WriteLine(""+nh.GoldAmount+nh.Apokalypsecount);
         }
 
-        public static void saveToJson(object obj)
+        public static TempShopValue getNewest()
         {
+            string obj = File.ReadAllText(@"..\\..\\Shop\\Shop.json");
+            TempShopValue temp = JsonConvert.DeserializeObject<TempShopValue>(obj);
+            return temp;
+        }
+
+        public static void saveToJson()
+        {
+            TempShopValue obj = new TempShopValue();
+            obj.Apokalypsecount = nh.Apokalypsecount;
+            obj.GoldAmount = nh.GoldAmount;
+            obj.SupernovaCount = nh.SupernovaCount;
+            obj.VBombCount = nh.VBombCount;
+            obj.Lives = nh.LivesExceed;
+            if (_highscore < nh.Score)
+            {
+                obj.HighestScore = nh.Score;
+            }
+            else
+            {
+                obj.HighestScore = _highscore;
+            }
+            if (_waveScore < nh.Waves)
+            {
+                obj.WaveHighScore = nh.Waves;
+            }
+            else
+            {
+                obj.WaveHighScore = _waveScore;
+            }
+        
             string json = JsonConvert.SerializeObject(obj);
-            File.WriteAllText(@"C:\Users\A639359\Documents\GitHub\SpaceInvaders\SpaceInvaders\Shop\Shop.json", json);
+            File.WriteAllText(@"..\\..\\Shop\\Shop.json", json);
         }
     }
 }
-//TODO evaluate Goldfunction retrieval 2
-//TODO make new Items6
-//TODO shop user interface 5
-//Todo implement skills 1
-//TOdo optimize Look of board 215
-//TODO implement pause correctly 4
-//TODo implement multiple lasers
+//TODo implement multiple lasers 5
 //TODO seperate Bomb and laser and Special count  (So you can shoot a bomb while Laser is Shooting)4
-//TODO Save to JSON 3
+//TODO implement heart item functionality

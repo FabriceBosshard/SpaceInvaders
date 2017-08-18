@@ -26,6 +26,7 @@ namespace SpaceInvaders
         public static bool PlayerHasBeenHit { get; set; }
 
         public static bool GameOver;
+        public static bool isShootingBomb;
 
         public static void CheckCollisionBetweenLaserInvader(Canvas canvas)
         {
@@ -113,18 +114,84 @@ namespace SpaceInvaders
 
         public static void CheckCollisionBetweenVBombInvader(Canvas canvas)
         {
-            //Max of 12 invaders hit
-            // x x x x x x
-            // x x x x x x
+            for (int i = 0; i < InvaderList.Count; i++)
+            {
+                UIElement inv = InvaderList.ElementAt(i);
+                Point Invaderposition = new Point()
+                {
+                    X = Canvas.GetLeft(inv),
+                    Y = Canvas.GetTop(inv)
+                };
+                Point BombPosition = new Point()
+                {
+                    X = (Canvas.GetLeft(BombList.ElementAt(0)) + 100),
+                    Y = (Canvas.GetTop(BombList.ElementAt(0)) + 100)
+                };
+                if ((Math.Abs(BombPosition.X - (Invaderposition.X + 20))) < 100 && (Math.Abs(BombPosition.Y - (Invaderposition.Y - 20)) < 100))
+                {
+                    InvaderList.Remove(inv);
+                    canvas.Children.Remove(inv);
+                    InvaderHitFromBomb.Add(inv);
+                    if (InvaderHitFromBomb.Count ==12)
+                    {
+                        hasBeenHit = true;
+                        break;
+                    }
+                }
+            }
         }
         public static void CheckCollisionBetweenSuperNovaInvader(Canvas canvas)
         {
-            
+            for (int i = 0; i < InvaderList.Count; i++)
+            {
+                UIElement inv = InvaderList.ElementAt(i);
+                Point Invaderposition = new Point()
+                {
+                    X = Canvas.GetLeft(inv),
+                    Y = Canvas.GetTop(inv)
+                };
+                Point BombPosition = new Point()
+                {
+                    X = (Canvas.GetLeft(SpecialsList.ElementAt(0))+125),
+                    Y = (Canvas.GetTop(SpecialsList.ElementAt(0))+62.5)
+                };
+                if ((Math.Abs(BombPosition.X - (Invaderposition.X + 20))) < 125 && (Math.Abs(BombPosition.Y - (Invaderposition.Y - 20)) < 62.5))
+                {
+                    InvaderList.Remove(inv);
+                    canvas.Children.Remove(inv);
+                    InvaderHitFromBomb.Add(inv);
+                }
+            }
         }
 
         public static void CheckCollisionBetweenApokalypseInvader(Canvas canvas)
         {
-            
+            for (int i = 0; i < InvaderList.Count; i++)
+            {
+                UIElement inv = InvaderList.ElementAt(i);
+                Point Invaderposition = new Point()
+                {
+                    X = Canvas.GetLeft(inv),
+                    Y = Canvas.GetTop(inv)
+                };
+                Point Laserposition = new Point()
+                {
+                    X = (Canvas.GetLeft(SpecialsList.ElementAt(0)) +50),
+                    Y = (Canvas.GetTop(SpecialsList.ElementAt(0))-40)
+                };
+                //Make 2 in the widht and endless in the height
+                if ((Math.Abs(Laserposition.X - (Invaderposition.X + 20))) < 70 && (Math.Abs(Laserposition.Y - (Invaderposition.Y - 20)) < 10))
+                {
+                    foreach (var inva in InvaderList)
+                    {
+                        canvas.Children.Remove(inva);
+                        InvaderHitFromBomb.Add(inv);
+                    }
+                    hasBeenHit = true;
+                    InvaderList.Clear();
+
+                }
+            }   
         }
     }
 }

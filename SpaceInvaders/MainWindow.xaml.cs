@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -38,6 +39,13 @@ namespace SpaceInvaders
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
             ShopValues.LoadFromJson();
+            this.Closing += OnClosing;
+            DataContext = MainWindowViewModel.InstanceCreation();
+        }
+
+        private void OnClosing(object sender, CancelEventArgs cancelEventArgs)
+        {
+            ShopValues.saveToJson();
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -52,6 +60,12 @@ namespace SpaceInvaders
             ShopView s = new ShopView();
             s.Show();
             this.Close();
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            ShopValues.saveToJson();
+            Close();
         }
     }
 

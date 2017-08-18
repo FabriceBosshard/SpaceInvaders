@@ -3,7 +3,7 @@
     public class NotifyHandler : NotifyPropertyChangedViewModel
     {
         private static int _score;
-        private static int _wave = 2;
+        private static int _wave = 1;
         private static int _lives = 3;
         private static int _bullets = 30;
         private static int _bombs = 3;
@@ -77,7 +77,47 @@
         private int _supernovaCount;
         private int _vBombCount;
         private int _apokalypsecount;
+        private int _WaveHighScore;
+        private int _HighestScore;
+        private int _LivesExceed;
 
+        public int LivesExceed
+        {
+            get { return _LivesExceed; }
+            set
+            {
+                if (_LivesExceed != value)
+                {
+                    _LivesExceed = value;
+                    OnPropertyChanged(nameof(LivesExceed));
+                }
+            }
+        }
+
+        public int WaveHighScore
+        {
+            get { return _WaveHighScore; }
+            set
+            {
+                if (_WaveHighScore != value)
+                {
+                    _WaveHighScore = value;
+                    OnPropertyChanged(nameof(WaveHighScore));
+                }
+            }
+        }
+        public int HighestScore
+        {
+            get { return _HighestScore; }
+            set
+            {
+                if (_HighestScore != value)
+                {
+                    _HighestScore = value;
+                    OnPropertyChanged(nameof(HighestScore));
+                }
+            }
+        }
         public int GoldAmount
         {
             get { return _goldAmount; }

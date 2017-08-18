@@ -169,6 +169,18 @@
   <ItemGroup>
     <Resource Include="PlayerStuff\apokalypse.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Gamefield\title.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Gamefield\space.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Gamefield\shopbackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Gamefield\heart.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

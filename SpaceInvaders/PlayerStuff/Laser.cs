@@ -52,8 +52,8 @@ namespace SpaceInvaders
         {
             UIElement nova = new Image
             {
-                Width = 200,
-                Height = 200,
+                Width = 250,
+                Height = 125,
                 Source = new BitmapImage(new Uri("PlayerStuff/supernova.png", UriKind.Relative))
             };
 

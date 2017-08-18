@@ -5,8 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpaceInvaders"
         mc:Ignorable="d"
-        Title="ShopView" Height="300" Width="300">
-    <Grid>
-        
+        d:DataContext="{d:DesignInstance local:MainWindowViewModel}"
+        Title="ShopView" Height="346.6" Width="778.2" ResizeMode="NoResize">
+    <Grid Margin="0,0,-1.6,-0.4" DataContext="{Binding NotifyHandler}">
+        <Grid.Background>
+            <ImageBrush ImageSource="Gamefield/shopbackground.png" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120*"/>
+            <RowDefinition Height="41*"/>
+        </Grid.RowDefinitions>
+        <Border BorderBrush="#05EDFF" CornerRadius="1" BorderThickness="1" Margin="0,0,0.2,41.6" Grid.RowSpan="2">
+            <Grid HorizontalAlignment="Left" Height="269" VerticalAlignment="Top" Width="381" Margin="0.2,0.2,0,-30.8">
+                <Image x:Name="image" Source="PlayerStuff/blackhole.png" HorizontalAlignment="Left" Height="45" Margin="70,10,0,0" VerticalAlignment="Top" Width="100"/>
+                <Image x:Name="image_Copy" Source="PlayerStuff/supernova.png" HorizontalAlignment="Left" Height="60" Margin="250,10,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.6,0.257"/>
+                <Image x:Name="image_Copy1" Source="PlayerStuff/apokalypse.png" HorizontalAlignment="Left" Height="65" Margin="87,124,0,0" VerticalAlignment="Top" Width="60"/>
+                <Button x:Name="vbomb" Content="1x 1500" HorizontalAlignment="Left" Margin="79,89,0,0" VerticalAlignment="Top" Width="60" Click="vbomb_Click"/>
+                <Button x:Name="supernova" Content="1x 2500" HorizontalAlignment="Left" Margin="240,89,0,0" VerticalAlignment="Top" Width="58" Click="supernova_Click"/>
+                <Button x:Name="apokalypse" Content="1x 5000" HorizontalAlignment="Left" Margin="79,216,0,0" VerticalAlignment="Top" Width="60" Click="apokalypse_Click"/>
+                <Label x:Name="ApokalypseCount" Content="{Binding Apokalypsecount}" HorizontalAlignment="Left" Margin="133,185,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <Label x:Name="ApokalypseCountLabel" Content="Im Besitz" HorizontalAlignment="Left" Margin="75,185,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <Label x:Name="SupernovaCount" Content="{Binding SupernovaCount}" HorizontalAlignment="Left" Margin="298,58,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="White"/>
+                <Label x:Name="SuperNovaCountLabel" Content="Im Besitz" HorizontalAlignment="Left" Margin="240,58,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <Label x:Name="VBombCount" Content="{Binding VBombCount}" HorizontalAlignment="Left" Margin="133,58,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="White"/>
+                <Label x:Name="VBombCountLabel" Content="Im Besitz" HorizontalAlignment="Left" Margin="75,58,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <Image x:Name="image_Copy2" Source="Gamefield/heart.png" HorizontalAlignment="Left" Height="65" Margin="250,124,0,0" VerticalAlignment="Top" Width="60"/>
+                <Label x:Name="HeartCountLabel" Content="Im Besitz" HorizontalAlignment="Left" Margin="240,185,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <Label x:Name="HeartCount" Content="{Binding LivesExceed}" HorizontalAlignment="Left" Margin="298,185,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <Button x:Name="HeartButton" Content="1x 9999" HorizontalAlignment="Left" Margin="240,216,0,0" VerticalAlignment="Top" Width="58" Click="HeartButton_Click"/>
+                <Button x:Name="vbomb_Copy" Content="10x" HorizontalAlignment="Left" Margin="139,89,0,0" VerticalAlignment="Top" Width="25" Click="vbomb_Copy_Click"/>
+                <Button x:Name="vbomb_Copy2" Content="10x" HorizontalAlignment="Left" Margin="139,216,0,0" VerticalAlignment="Top" Width="25" Click="vbomb_Copy2_Click"/>
+                <Button x:Name="vbomb_Copy1" Content="10x" HorizontalAlignment="Left" Margin="298,216,0,0" VerticalAlignment="Top" Width="25" Click="vbomb_Copy1_Click"/>
+                <Button x:Name="vbomb_Copy3" Content="10x" HorizontalAlignment="Left" Margin="298,89,0,0" VerticalAlignment="Top" Width="25" Click="vbomb_Copy3_Click"/>
+            </Grid>
+        </Border>
+        <Border BorderBrush="#05EDFF" CornerRadius="1" BorderThickness="1" Grid.ColumnSpan="2" Margin="381,0,2.6,41.6" Grid.RowSpan="2">
+            <Grid HorizontalAlignment="Left" Height="278" VerticalAlignment="Top" Width="382" Margin="-0.8,1.2,0,-40.8">
+            </Grid>
+        </Border>
+        <Button x:Name="Back" Content="Back" HorizontalAlignment="Left" Margin="276.8,50,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100" Grid.Column="1" Height="25" Click="Back_Click"/>
+        <Label x:Name="labelGold" Content="Gold:" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Height="26" Width="70" Foreground="White" Grid.Row="1"/>
+        <Label x:Name="GoldValue" Content="{Binding GoldAmount}" HorizontalAlignment="Left" Margin="55,49,0,0" VerticalAlignment="Top" Height="26" Width="85" Foreground="White" Grid.Row="1"/>
+
     </Grid>
 </Window>

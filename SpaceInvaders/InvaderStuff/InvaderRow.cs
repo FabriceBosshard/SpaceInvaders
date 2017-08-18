@@ -15,17 +15,19 @@ namespace SpaceInvaders
         private const double _left = 40;
         private const int _invaderWidth = 40;
         private readonly int _invaderHeight = 40;
-
+        private int hitGold = 20;
         private readonly NotifyHandler _notifyHandler = NotifyHandler.InstanceCreation();
-        private readonly TimeSpan _speed = new TimeSpan(0, 0, 0, 1, 0);
+        private readonly MainWindowViewModel _mh = MainWindowViewModel.InstanceCreation();
+        private readonly TimeSpan _speed = new TimeSpan(0, 0, 0, 1,0);
+        private readonly TimeSpan _speed2 = new TimeSpan(0, 0, 0, 0, 550);
         private readonly Point _startingPoint = new Point(50, 0);
         private readonly Canvas _canvas;
         private bool _direction;
         private bool _hasTurned;
         private readonly int _hitPoints = 10;
         private int _invadercount;
-        private int _invaderCountRows = 5;
-        private int _invadersRows = 2;
+        private int _invaderCountRows = 6;
+        private int _invadersRows = 3;
         private bool _isBorder;
         private Point _oldPosition;
         private DispatcherTimer _t = new DispatcherTimer();
@@ -78,7 +80,10 @@ namespace SpaceInvaders
 
         private void ScoreTimer_Tick(object sender, EventArgs e)
         {
-            UpdatePoints(UIObjects.InvaderHitFromBomb);
+            if (!UIObjects.isShootingBomb)
+            {
+                UpdatePoints(UIObjects.InvaderHitFromBomb);
+            }
         }
 
         public void CreateNewWave()
@@ -121,14 +126,17 @@ namespace SpaceInvaders
 
         private void InvaderRow_Tick(object sender, EventArgs e)
         {
-            if (!UIObjects.GameOver)
+            if (!_mh.IsPaused)
             {
-                CheckCollision(UIObjects.InvaderList);
-                CheckPositionInvaders(UIObjects.InvaderList);
-                UIObjects.checkInvaderCount();               
-                CheckOnNewWave();
-                InvaderShoot(UIObjects.InvaderList);
-             }
+                if (!UIObjects.GameOver)
+                {
+                    CheckCollision(UIObjects.InvaderList);
+                    CheckPositionInvaders(UIObjects.InvaderList);
+                    UIObjects.checkInvaderCount();
+                    CheckOnNewWave();
+                    InvaderShoot(UIObjects.InvaderList);
+                }
+            }
 
         }
 
@@ -139,36 +147,57 @@ namespace SpaceInvaders
                 UIObjects.InvaderList.Clear();
                 _t.Stop();
                 _top = 0;
-                if (_notifyHandler.Waves == 30)
+                if (_notifyHandler.Waves >= 29)
                 {
+                    _notifyHandler.GoldAmount += 2000;
+                    _invaderCountRows = 0;
+                    _invadersRows = 0;
                     UIObjects.GameOver = true;
                     GameOver GO = new GameOver();
                     GO.Show();
                 }
+                if (_notifyHandler.Waves >= 24)
+                {
+                    _notifyHandler.GoldAmount += 1000;
+                    _invaderCountRows = 6;
+                    _t.Interval = _speed2;
+                }
                 if (_notifyHandler.Waves == 19)
                 {
-                    _invadersRows = 5;
-                    _invaderCountRows = 5;
-                    _notifyHandler.Bullets = 100;
-                    _notifyHandler.Lives = 3;
+                    _invadersRows = 7;
+                    _invaderCountRows = 6;
+                    _notifyHandler.GoldAmount += 800;
+                }
+                else if (_notifyHandler.Waves == 14)
+                {
+                    _invadersRows = 6;
+                    _invaderCountRows = 6;
+                    _notifyHandler.GoldAmount += 600;
                 }
                 else if (_notifyHandler.Waves == 9)
                 {
-                    _invadersRows = 3;
-                    _invaderCountRows = 5;
-                    _notifyHandler.Bullets = 75;
-                    _notifyHandler.Lives = 3;
-                }                           
+                    _invadersRows = 5;
+                    _invaderCountRows = 6;
+                    _notifyHandler.GoldAmount += 400;
+                }
+                else if (_notifyHandler.Waves == 4)
+                {
+                    _invadersRows = 4;
+                    _invaderCountRows = 6;
+                    _notifyHandler.GoldAmount += 300;
+                }
                 else
                 {
-                    _invaderCountRows += 1;                   
-                    _notifyHandler.Bullets = 50;
+                    _invaderCountRows += 1;
+                    _notifyHandler.GoldAmount += 200;
+                    _notifyHandler.Bullets = 75;
                 }
                 if (_notifyHandler.Waves % 5 == 0)
                 {
                     _notifyHandler.Bombs = 3;
                 }
                 _notifyHandler.Waves += 1;
+                
                 UIObjects.newWave = false;
                 CreateNewWave();
             }
@@ -203,17 +232,20 @@ namespace SpaceInvaders
 
         private void Shoot(object sender, EventArgs e)
         {
-            _invaderShootPos.Y += _bulletSpeed;
+            if (!_mh.IsPaused)
+            {
+                _invaderShootPos.Y += _bulletSpeed;
 
             
-            Canvas.SetLeft(_laser, _invaderShootPos.X + (_invaderWidth / 2));
-            Canvas.SetTop(_laser, _invaderShootPos.Y + 5);
+                Canvas.SetLeft(_laser, _invaderShootPos.X + (_invaderWidth / 2));
+                Canvas.SetTop(_laser, _invaderShootPos.Y + 5);
 
-            UIObjects.CheckCollisionBetweenInvLaserPlayer(_canvas);
+                UIObjects.CheckCollisionBetweenInvLaserPlayer(_canvas);
 
-            if (_invaderShootPos.Y > 642 || UIObjects.PlayerHasBeenHit)
-            {
-                DeleteBullet();
+                if (_invaderShootPos.Y > 642 || UIObjects.PlayerHasBeenHit)
+                {
+                    DeleteBullet();
+                }
             }
         }
 
@@ -246,7 +278,8 @@ namespace SpaceInvaders
 
         private void UpdatePoints(List<UIElement> invadersHit )
         {   
-            _notifyHandler.Score += (_hitPoints * invadersHit.Count);
+            _notifyHandler.Score += (_hitPoints * invadersHit.Count);            
+            _notifyHandler.GoldAmount += (hitGold * invadersHit.Count);
             UIObjects.InvaderHitFromBomb.Clear();
 
         }

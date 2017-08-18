@@ -13,7 +13,10 @@
     <Window.Resources>
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     </Window.Resources>
-    <Grid x:Name="BlankGrid" Background="#000000" Width=" 1194">
+    <Grid x:Name="BlankGrid" Width=" 1194">
+        <Grid.Background>
+            <ImageBrush ImageSource="Gamefield/nebula.png" Stretch="UniformToFill"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="{Binding XOffset}" />
             <ColumnDefinition Width="{Binding PlayboardWidth}" />
@@ -23,56 +26,44 @@
             <RowDefinition Height="75" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid x:Name="DisplayGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#000000" Grid.Row="0" Grid.ColumnSpan="3" Width ="1200">
+        <Grid x:Name="DisplayGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="3" Width ="1200">
             <StackPanel  x:Name="DisplayStackPanel" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="4" DataContext="{Binding NotifyHandler}" Width="1200">
-                <StackPanel.Background>
-                    <ImageBrush ImageSource="Gamefield/marble.jpg" Stretch="UniformToFill"/>
-                </StackPanel.Background>
-                <TextBox x:Name="ScoreText" Foreground="#FF5FFFB3" IsReadOnly="True"  BorderBrush="#FF5FFFB3" HorizontalAlignment="Left" Height="75" TextWrapping="Wrap" Text="Score:" VerticalAlignment="Top" Width="200" FontSize="35" FontFamily="Levenim MT" Background="#000000"/>
-                <TextBox x:Name="Score" IsReadOnly="True"  TextWrapping="Wrap"  BorderBrush="#FF5FFFB3" Text="{Binding Score}" Width="198.5" Background="#000000" FontSize="48" FontFamily="Levenim MT"  Height="75" Foreground="#FF5FFFB3"/>
-                <TextBox x:Name="GoldText" IsReadOnly="True" Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3"  HorizontalAlignment="Left" Height="75" TextWrapping="Wrap" Text="Gold: " VerticalAlignment="Top" Width="198.5" FontSize="35" FontFamily="Levenim MT" Background="#000000"/>
-                <TextBox x:Name="Gold" IsReadOnly="True" TextWrapping="Wrap" Text="{Binding GoldAmount}" BorderBrush="#FF5FFFB3" Width="198.5" Background="#000000" FontSize="48" FontFamily="Levenim MT" Height="75" Foreground="#FF5FFFB3"/>
-                <TextBox x:Name="LivesText" IsReadOnly="True" Foreground="#FF5FFFB3" BorderBrush="#FF5FFFB3"  HorizontalAlignment="Left" Height="75" TextWrapping="Wrap" Text="Lives: " VerticalAlignment="Top" Width="198.5" FontSize="35" FontFamily="Levenim MT" Background="#000000"/>
-                <TextBox x:Name="Lives" IsReadOnly="True" TextWrapping="Wrap" Text="{Binding Lives}" BorderBrush="#FF5FFFB3" Width="200" Background="#000000" FontSize="48" FontFamily="Levenim MT" Height="75" Foreground="#FF5FFFB3"/>
+                <TextBox x:Name="ScoreText" Foreground="#05EDFF" IsReadOnly="True"  BorderBrush="#05EDFF" HorizontalAlignment="Left" Height="75" TextWrapping="Wrap" Text="Score:" VerticalAlignment="Top" Width="200" FontSize="35" FontFamily="Levenim MT" Background="{x:Null}"/>
+                <TextBox x:Name="Score" IsReadOnly="True"  TextWrapping="Wrap"  BorderBrush="#05EDFF" Text="{Binding Score}" Width="198.5" Background="{x:Null}" FontSize="48" FontFamily="Levenim MT"  Height="75" Foreground="#05EDFF"/>
+                <TextBox x:Name="GoldText" IsReadOnly="True" Foreground="#05EDFF" BorderBrush="#05EDFF"  HorizontalAlignment="Left" Height="75" TextWrapping="Wrap" Text="Gold: " VerticalAlignment="Top" Width="198.5" FontSize="35" FontFamily="Levenim MT" Background="{x:Null}"/>
+                <TextBox x:Name="Gold" IsReadOnly="True" TextWrapping="Wrap" Text="{Binding GoldAmount}" BorderBrush="#05EDFF" Width="198.5" Background="{x:Null}" FontSize="48" FontFamily="Levenim MT" Height="75" Foreground="#05EDFF"/>
+                <TextBox x:Name="LivesText" IsReadOnly="True" Foreground="#05EDFF" BorderBrush="#05EDFF"  HorizontalAlignment="Left" Height="75" TextWrapping="Wrap" Text="Lives: " VerticalAlignment="Top" Width="198.5" FontSize="35" FontFamily="Levenim MT" Background="#000000"/>
+                <TextBox x:Name="Lives" IsReadOnly="True" TextWrapping="Wrap" Text="{Binding Lives}" BorderBrush="#05EDFF" Width="200" Background="{x:Null}" FontSize="48" FontFamily="Levenim MT" Height="75" Foreground="#05EDFF"/>
             </StackPanel>
         </Grid>
-        <Grid x:Name="LeftGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Background="Black" Width="200" Grid.ColumnSpan="3">
-            <StackPanel x:Name="ButtonsStackPanel" HorizontalAlignment="Left" VerticalAlignment="Top" Height="697" Width="200">
-                <StackPanel.Background>
-                    <ImageBrush ImageSource="Gamefield/marble.jpg" Stretch="UniformToFill"/>
-                </StackPanel.Background>
-                <Button x:Name="NewGame" Foreground="#FF5FFFB3"  Focusable="False" IsEnabled="{Binding IsPaused, Converter={StaticResource InverseBooleanConverter}}" Content="NEW GAME" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="60" FontFamily="Levenim MT" FontSize="22" Background="#000000" BorderBrush="#FF5FFFB3" Click="NewGameButton"/>
-                <Button x:Name="Pause" Foreground="#FF5FFFB3" Focusable="False" Content="❚❚ ►" Command="{Binding ClickCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="60" FontSize="22" Background="#000000" BorderBrush="#FF5FFFB3" FontFamily="Arial"/>
-                <Button x:Name="Exit" Foreground="#FF5FFFB3" Focusable="False" Content="EXIT" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="60" FontSize="22" Background="#000000" BorderBrush="#FF5FFFB3" Click="ExitButton" FontFamily="Levenim MT"/>
+        <Grid x:Name="LeftGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Width="200" Grid.ColumnSpan="3">
+            <StackPanel x:Name="ButtonsStackPanel" HorizontalAlignment="Left" Opacity="0.8" VerticalAlignment="Top" Height="697" Width="200">
+                <Button x:Name="NewGame" Foreground="#05EDFF"  Focusable="False" IsEnabled="{Binding IsPaused, Converter={StaticResource InverseBooleanConverter}}" Content="NEW GAME" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="60" FontFamily="Levenim MT" FontSize="22" Background="{x:Null}" BorderBrush="#05EDFF" Click="NewGameButton"/>
+                <Button x:Name="Pause" Foreground="#05EDFF" Focusable="False" Content="❚❚ ►" Command="{Binding ClickCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="60" FontSize="22" Background="{x:Null}" BorderBrush="#05EDFF" FontFamily="Arial"/>
+                <Button x:Name="Exit" Foreground="#05EDFF" Focusable="False" Content="EXIT" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="60" FontSize="22" Background="{x:Null}" BorderBrush="#05EDFF" Click="ExitButton" FontFamily="Levenim MT"/>
             </StackPanel>
         </Grid>
-        <Grid x:Name="RightGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="2" Background="Black" Width="200">
-            <Border BorderBrush="#FF5FFFB3" CornerRadius="1" Background="Black" BorderThickness="1">
+        <Grid x:Name="RightGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="2" Width="200">
+            <Border BorderBrush="#05EDFF" CornerRadius="1" BorderThickness="1">
                 <StackPanel x:Name="InfoStackPanel" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Height="697" DataContext="{Binding NotifyHandler}">
-                    <StackPanel.Background>
-                        <ImageBrush ImageSource="Gamefield/marble.jpg" Stretch="UniformToFill"/>
-                    </StackPanel.Background>
-                    <TextBox x:Name="Wave" BorderBrush="#FF5FFFB3" Foreground="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="Wave:" VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="#000000"/>
-                    <TextBox x:Name="WaveValue" BorderBrush="#FF5FFFB3" Foreground="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="{Binding Waves}" VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="#000000"/>
-                    <TextBox x:Name="Laser"  BorderBrush="#FF5FFFB3" Foreground="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="Laser: (SPACE)" VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="#000000"/>
-                    <TextBox x:Name="LaserValue"  BorderBrush="#FF5FFFB3" Foreground="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="{Binding Bullets}"  VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="#000000" AcceptsTab="True"/>
-                    <TextBox x:Name="Bomb"  BorderBrush="#FF5FFFB3" Foreground="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="SuperLaser: (V)" VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="#000000"/>
-                    <TextBox x:Name="BombValue"  BorderBrush="#FF5FFFB3" Foreground="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="{Binding Bombs}"  VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="#000000" AcceptsTab="True"/>
-                    <TextBox x:Name="VBomb"  BorderBrush="#FF5FFFB3" Foreground="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="Blackhole: (B)" VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="#000000"/>
-                    <TextBox x:Name="VBombValue"  BorderBrush="#FF5FFFB3" Foreground="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="{Binding VBombCount}"  VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="#000000" AcceptsTab="True"/>
-                    <TextBox x:Name="Supernova"  BorderBrush="#FF5FFFB3" Foreground="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="Supernova: (N)" VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="#000000"/>
-                    <TextBox x:Name="SupernovaValue"  BorderBrush="#FF5FFFB3" Foreground="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="{Binding SupernovaCount}"  VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="#000000" AcceptsTab="True"/>
-                    <TextBox x:Name="Apokalypse"  BorderBrush="#FF5FFFB3" Foreground="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="Apokalypse: (M)" VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="#000000"/>
-                    <TextBox x:Name="ApokalypseValue"  BorderBrush="#FF5FFFB3" Foreground="#FF5FFFB3" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="{Binding Apokalypsecount}"  VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="#000000" AcceptsTab="True"/>
+                    <TextBox x:Name="Wave" BorderBrush="#05EDFF" Foreground="#05EDFF" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="Wave:" VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="{x:Null}"/>
+                    <TextBox x:Name="WaveValue" BorderBrush="#05EDFF" Foreground="#05EDFF" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="{Binding Waves}" VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="{x:Null}"/>
+                    <TextBox x:Name="Laser"  BorderBrush="#05EDFF" Foreground="#05EDFF" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="Laser: (SPACE)" VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="{x:Null}"/>
+                    <TextBox x:Name="LaserValue"  BorderBrush="#05EDFF" Foreground="#05EDFF" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="{Binding Bullets}"  VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="{x:Null}" AcceptsTab="True"/>
+                    <TextBox x:Name="Bomb"  BorderBrush="#05EDFF" Foreground="#05EDFF" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="SuperLaser: (V)" VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="{x:Null}"/>
+                    <TextBox x:Name="BombValue"  BorderBrush="#05EDFF" Foreground="#05EDFF" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="{Binding Bombs}"  VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="{x:Null}" AcceptsTab="True"/>
+                    <TextBox x:Name="VBomb"  BorderBrush="#05EDFF" Foreground="#05EDFF" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="Blackhole: (B)" VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="{x:Null}"/>
+                    <TextBox x:Name="VBombValue"  BorderBrush="#05EDFF" Foreground="#05EDFF" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="{Binding VBombCount}"  VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="{x:Null}" AcceptsTab="True"/>
+                    <TextBox x:Name="Supernova"  BorderBrush="#05EDFF" Foreground="#05EDFF" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="Supernova: (N)" VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="{x:Null}"/>
+                    <TextBox x:Name="SupernovaValue"  BorderBrush="#05EDFF" Foreground="#05EDFF" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="{Binding SupernovaCount}"  VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="{x:Null}" AcceptsTab="True"/>
+                    <TextBox x:Name="Apokalypse"  BorderBrush="#05EDFF" Foreground="#05EDFF" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="Apokalypse: (M)" VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="{x:Null}"/>
+                    <TextBox x:Name="ApokalypseValue"  BorderBrush="#05EDFF" Foreground="#05EDFF" IsReadOnly="True" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="{Binding Apokalypsecount}"  VerticalAlignment="Top" Width="200" FontSize="20" FontFamily="Levenim MT" Background="{x:Null}" AcceptsTab="True"/>
                 </StackPanel>
             </Border>
         </Grid>
         <Grid x:Name="FieldGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Width="794">
-            <Border BorderBrush="#FF5FFFB3" CornerRadius="1" Background="Black" BorderThickness="1">
+            <Border BorderBrush="#05EDFF" CornerRadius="1" BorderThickness="1">
                 <Canvas x:Name="Playground" HorizontalAlignment="Left" Height="697" VerticalAlignment="Top" Width="794">
-                    <Canvas.Background>
-                        <ImageBrush ImageSource="Gamefield/nebula.png" Stretch="UniformToFill"/>
-                    </Canvas.Background>
                     <!--Raumschiff-->
                     <Image x:Name="Player" IsEnabled="{Binding IsPaused, Converter={StaticResource InverseBooleanConverter}}" Height="100" Canvas.Left="{Binding Left}" Source="PlayerStuff/Spaceship-PNG-File.png" Stretch="Fill" Canvas.Top="{Binding Top}" Width="{Binding PlayerWidth}" />
                 </Canvas>

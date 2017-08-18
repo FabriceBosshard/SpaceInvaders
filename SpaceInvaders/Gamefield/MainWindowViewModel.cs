@@ -16,7 +16,10 @@ namespace SpaceInvaders
 
         private double _top;
 
-        public MainWindowViewModel()
+        private static volatile MainWindowViewModel _scoreHandlerObject;
+        private static readonly object lockingObject = new object();
+
+        private MainWindowViewModel()
         {
             IsPaused = false;
             ClickCommand = new DelegateCommand(Pause);
@@ -25,6 +28,17 @@ namespace SpaceInvaders
             moveTimer.Tick += MoveTimerTick;
             moveTimer.Interval = new TimeSpan(10000);
             moveTimer.Start();
+        }
+
+        public static MainWindowViewModel InstanceCreation()
+        {
+            if (_scoreHandlerObject == null)
+                lock (lockingObject)
+                {
+                    if (_scoreHandlerObject == null)
+                        _scoreHandlerObject = new MainWindowViewModel();
+                }
+            return _scoreHandlerObject;
         }
 
         private void MoveTimerTick(object sender, EventArgs e)

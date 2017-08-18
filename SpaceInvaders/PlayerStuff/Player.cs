@@ -42,6 +42,7 @@ namespace SpaceInvaders
         private UIElement apokalypse = Laser.CreateApokalypse();
         private Point position;
         readonly NotifyHandler _notifyHandler = NotifyHandler.InstanceCreation();
+        private readonly MainWindowViewModel _mh = MainWindowViewModel.InstanceCreation();
 
         private DispatcherTimer t;
         
@@ -105,15 +106,18 @@ namespace SpaceInvaders
 
         public void Shoot(object sender, EventArgs e)
         {
-            position.Y -= bulletSpeed;
-            Canvas.SetTop(laser, position.Y);
-            Canvas.SetLeft(laser, position.X + 50);
-
-            UIObjects.CheckCollisionBetweenLaserInvader(canvas);
-
-            if (position.Y < 0 || UIObjects.hasBeenHit)
+            if (!_mh.IsPaused)
             {
-                DeleteBullet();
+                position.Y -= bulletSpeed;
+                Canvas.SetTop(laser, position.Y);
+                Canvas.SetLeft(laser, position.X + 50);
+
+                UIObjects.CheckCollisionBetweenLaserInvader(canvas);
+
+                if (position.Y < 0 || UIObjects.hasBeenHit)
+                {
+                    DeleteBullet();
+                }
             }
 
         }
@@ -157,15 +161,18 @@ namespace SpaceInvaders
 
         private void ShootSuperLaser(object sender, EventArgs e)
         {
-            position.Y -= bulletSpeed;
-            Canvas.SetTop(SuperLaser, position.Y);
-            Canvas.SetLeft(SuperLaser, position.X + 50);
-
-            UIObjects.CheckCollisionBetweenSuperLaserInvader(canvas);
-
-            if (position.Y < 0)
+            if (!_mh.IsPaused)
             {
-                DeleteSuperLaser();
+                position.Y -= bulletSpeed;
+                Canvas.SetTop(SuperLaser, position.Y);
+                Canvas.SetLeft(SuperLaser, position.X + 50);
+
+                UIObjects.CheckCollisionBetweenSuperLaserInvader(canvas);
+
+                if (position.Y < 0)
+                {
+                    DeleteSuperLaser();
+                }
             }
         }
 
@@ -187,6 +194,7 @@ namespace SpaceInvaders
             if (_notifyHandler.VBombCount != 0)
             {
                 isShootingVBomb = true;
+                UIObjects.isShootingBomb = true;
 
                 this.canvas = playground;
                 this.player = player;
@@ -208,15 +216,18 @@ namespace SpaceInvaders
 
         private void ShootVBomb(object sender, EventArgs e)
         {
-            position.Y -= VBombSpeed;
-            Canvas.SetTop(Vbomb, position.Y - 100);
-            Canvas.SetLeft(Vbomb, position.X - 50);
-
-            UIObjects.CheckCollisionBetweenVBombInvader(canvas);
-
-            if (position.Y < 25)
+            if (!_mh.IsPaused)
             {
-                DeleteVBomb();
+                position.Y -= VBombSpeed;
+                Canvas.SetTop(Vbomb, position.Y - 100);
+                Canvas.SetLeft(Vbomb, position.X - 50);
+
+                UIObjects.CheckCollisionBetweenVBombInvader(canvas);
+
+                if (position.Y < 25 || UIObjects.hasBeenHit)
+                {
+                    DeleteVBomb();
+                }
             }
         }
 
@@ -226,6 +237,7 @@ namespace SpaceInvaders
             UIObjects.BombList.Remove(Vbomb);
             isShootingVBomb = false;
             UIObjects.hasBeenHit = false;
+            UIObjects.isShootingBomb = false;
             t.Stop();
         }
 
@@ -259,15 +271,18 @@ namespace SpaceInvaders
 
         private void ShootSuperNova(object sender, EventArgs e)
         {
-            position.Y -= SupernovaSpeed;
-            Canvas.SetTop(supernova, position.Y - 100);
-            Canvas.SetLeft(supernova, position.X - 50);
-
-            UIObjects.CheckCollisionBetweenSuperNovaInvader(canvas);
-
-            if (position.Y < 50)
+            if (!_mh.IsPaused)
             {
-                DeleteSuperNova();
+                position.Y -= SupernovaSpeed;
+                Canvas.SetTop(supernova, position.Y - 100);
+                Canvas.SetLeft(supernova, position.X - 50);
+
+                UIObjects.CheckCollisionBetweenSuperNovaInvader(canvas);
+
+                if (position.Y < 65)
+                {
+                    DeleteSuperNova();
+                }
             }
         }
 
@@ -310,15 +325,18 @@ namespace SpaceInvaders
 
         private void ShootApokalypse(object sender, EventArgs e)
         {
-            position.Y -= ApokalypseSpeed;
-            Canvas.SetTop(apokalypse, position.Y - 100);
-            Canvas.SetLeft(apokalypse, position.X);
-
-            UIObjects.CheckCollisionBetweenApokalypseInvader(canvas);
-
-            if (position.Y < 100)
+            if (!_mh.IsPaused)
             {
-                DeleteApokalypse();
+                position.Y -= ApokalypseSpeed;
+                Canvas.SetTop(apokalypse, position.Y - 100);
+                Canvas.SetLeft(apokalypse, position.X);
+
+                UIObjects.CheckCollisionBetweenApokalypseInvader(canvas);
+
+                if (position.Y < 100 || UIObjects.hasBeenHit)
+                {
+                    DeleteApokalypse();
+                }
             }
         }
 

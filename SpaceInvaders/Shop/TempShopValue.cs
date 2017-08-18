@@ -12,6 +12,9 @@ namespace SpaceInvaders.Shop
         public int SupernovaCount;
         public int VBombCount;
         public int Apokalypsecount;
+        public int WaveHighScore;
+        public int HighestScore;
+        public int Lives;
 
         public TempShopValue()
         {

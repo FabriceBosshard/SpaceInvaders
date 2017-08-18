@@ -5,13 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpaceInvaders"
         mc:Ignorable="d"
-        Title="Board" Height="300" Width="300">
-    <Grid>
+        d:DataContext="{d:DesignInstance local:MainWindowViewModel}"
+        Title="Space Invaders" Height="431.6" Width="480" ResizeMode="NoResize">
+    <Grid DataContext="{Binding NotifyHandler}">
         <Grid.Background>
-            <ImageBrush ImageSource="Gamefield/marble.jpg" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="Gamefield/space.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
-        <Button x:Name="start" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Click="button_Click" Height="39" Margin="75,141,0,0"/>
-        <Button x:Name="shop" Content="Shop" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135"  Height="39" Margin="75,185,0,0" Click="shop_Click"/>
+        <Button x:Name="start" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="175" Click="button_Click" Height="39" Margin="270,247,0,0" Opacity="0.8" BorderBrush="#FFE5DCDC">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FF0A0A0B" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+        <Button x:Name="shop" Content="Shop" HorizontalAlignment="Left" VerticalAlignment="Top" Width="175"  Height="39" Margin="270,291,0,0" Click="shop_Click" Opacity="0.8">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FF0A0A0B" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Image x:Name="image" Source="Gamefield/title.png" HorizontalAlignment="Left" Height="180" VerticalAlignment="Top" Width="410" Margin="35,20,0,0"/>
+        <Label x:Name="labelBestWave" Content="Best Wave:" HorizontalAlignment="Left" Margin="35,333,0,0" VerticalAlignment="Top" Height="39" Width="70" Background="{x:Null}" Foreground="White" FontWeight="Bold"/>
+        <Label x:Name="labelBestScore" Content="Best Score:" HorizontalAlignment="Left" Margin="35,356,0,0" VerticalAlignment="Top" Height="39" Width="70" Foreground="White" FontWeight="Bold"/>
+        <Label x:Name="labelGold" Content="Gold:" HorizontalAlignment="Left" Margin="35,312,0,0" VerticalAlignment="Top" Height="39" Width="70" Foreground="White" FontWeight="Bold"/>
+        <Label x:Name="GoldValue" Content="{Binding GoldAmount}" HorizontalAlignment="Left" Margin="110,312,0,0" VerticalAlignment="Top" Height="39" Width="85" Foreground="White" FontWeight="Bold"/>
+        <Label x:Name="WaveValue" Content="{Binding WaveHighScore}" HorizontalAlignment="Left" Margin="110,333,0,0" VerticalAlignment="Top" Height="39" Width="70" Background="{x:Null}" Foreground="White" FontWeight="Bold"/>
+        <Label x:Name="ScoreValue" Content="{Binding HighestScore}" HorizontalAlignment="Left" Margin="110,356,0,0" VerticalAlignment="Top" Height="39" Width="70" Foreground="White" FontWeight="Bold"/>
+        <Button x:Name="Exit" Content="Leave" HorizontalAlignment="Left" VerticalAlignment="Top" Width="175"  Height="39" Margin="270,335,0,0" Opacity="0.8" Click="Exit_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FF0A0A0B" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </Window>

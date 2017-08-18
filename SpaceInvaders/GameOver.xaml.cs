@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SpaceInvaders.Shop;
 
 namespace SpaceInvaders
 {
@@ -27,7 +28,7 @@ namespace SpaceInvaders
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
             this.KeyUp += NewGame;
-            DataContext = new MainWindowViewModel();
+            DataContext = MainWindowViewModel.InstanceCreation();
 
         }
 
@@ -39,6 +40,7 @@ namespace SpaceInvaders
             Process.Start(Application.ResourceAssembly.Location);
             Application.Current.Shutdown();
             UIObjects.GameOver = false;
+            ShopValues.saveToJson();
         }
     }
 }
