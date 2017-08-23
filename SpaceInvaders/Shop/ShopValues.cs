@@ -72,4 +72,3 @@ namespace SpaceInvaders.Shop
 }
 //TODo implement multiple lasers 5
 //TODO seperate Bomb and laser and Special count  (So you can shoot a bomb while Laser is Shooting)4
-//TODO implement heart item functionality

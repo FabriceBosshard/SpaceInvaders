@@ -38,9 +38,9 @@
         </Grid>
         <Grid x:Name="LeftGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Width="200" Grid.ColumnSpan="3">
             <StackPanel x:Name="ButtonsStackPanel" HorizontalAlignment="Left" Opacity="0.8" VerticalAlignment="Top" Height="697" Width="200">
-                <Button x:Name="NewGame" Foreground="#05EDFF"  Focusable="False" IsEnabled="{Binding IsPaused, Converter={StaticResource InverseBooleanConverter}}" Content="NEW GAME" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="60" FontFamily="Levenim MT" FontSize="22" Background="{x:Null}" BorderBrush="#05EDFF" Click="NewGameButton"/>
+                <Button x:Name="GoBack" Foreground="#05EDFF"  Focusable="False" IsEnabled="{Binding IsPaused, Converter={StaticResource InverseBooleanConverter}}" Content="Go Back" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="60" FontFamily="Levenim MT" FontSize="22" Background="{x:Null}" BorderBrush="#05EDFF" Click="NewGameButton"/>
                 <Button x:Name="Pause" Foreground="#05EDFF" Focusable="False" Content="❚❚ ►" Command="{Binding ClickCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="60" FontSize="22" Background="{x:Null}" BorderBrush="#05EDFF" FontFamily="Arial"/>
-                <Button x:Name="Exit" Foreground="#05EDFF" Focusable="False" Content="EXIT" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="60" FontSize="22" Background="{x:Null}" BorderBrush="#05EDFF" Click="ExitButton" FontFamily="Levenim MT"/>
+                <Button x:Name="Exit" Foreground="#05EDFF" Focusable="False" Content="Exit" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="60" FontSize="22" Background="{x:Null}" BorderBrush="#05EDFF" Click="ExitButton" FontFamily="Levenim MT"/>
             </StackPanel>
         </Grid>
         <Grid x:Name="RightGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="2" Width="200">

@@ -45,17 +45,11 @@ namespace SpaceInvaders
             DataContext = _mh;
             MainWindowViewModel.Left = 397;
             MainWindowViewModel.Top = 581;
-            this.Closing += OnClosing;
             MainWindowViewModel.NotifyHandler.Waves = 1;
             MainWindowViewModel.NotifyHandler.Lives = 3 + MainWindowViewModel.NotifyHandler.LivesExceed;
             MainWindowViewModel.NotifyHandler.Score = 0;
             MainWindowViewModel.NotifyHandler.Bombs = 3;
             MainWindowViewModel.NotifyHandler.Bullets = 75;
-        }
-
-        private void OnClosing(object sender, CancelEventArgs cancelEventArgs)
-        {
-            ShopValues.saveToJson();           
         }
 
         public MainWindowViewModel MainWindowViewModel => DataContext as MainWindowViewModel;
@@ -64,15 +58,14 @@ namespace SpaceInvaders
         {
             player = new Player();
             UIObjects.PlayerList.Add(Player);
-            new InvaderRow(Playground);
-
+            invRow = new InvaderRow(Playground);
         }
+
+        private InvaderRow invRow;
 
         private void NewGameButton(object sender, RoutedEventArgs e)
         {
             ShopValues.saveToJson();
-            MainWindow a = new MainWindow();           
-            a.Show();
             this.Close();
             StartGame();
             Process.Start(Application.ResourceAssembly.Location);
@@ -82,14 +75,19 @@ namespace SpaceInvaders
         private void ExitButton(object sender, RoutedEventArgs e)
         {
             ShopValues.saveToJson();
-            MainWindow a = new MainWindow();
-            
-            a.Show();
             this.Close();
+
+
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
+            //switch (e.Key)
+            //{
+            //    case Key.P:
+            //        _mh.ClickCommand.Execute();
+            //        break;
+            //}
 
             if (!MainWindowViewModel.IsPaused)
             {
@@ -155,18 +153,14 @@ namespace SpaceInvaders
                         break;
                     case Key.Escape:
                         ShopValues.saveToJson();
-                        MainWindow a = new MainWindow();                      
-                        a.Show();
-                        this.Close();
+                        Environment.Exit(0);
                         break;
                     case Key.Enter:
                         ShopValues.saveToJson();
                         Process.Start(Application.ResourceAssembly.Location);
                         Application.Current.Shutdown();
                         break;
-                    case Key.P:
-                        _mh.ClickCommand.Execute();
-                        break;
+                    
                 }
 
             }

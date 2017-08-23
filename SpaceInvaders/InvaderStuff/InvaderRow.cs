@@ -18,7 +18,7 @@ namespace SpaceInvaders
         private int hitGold = 20;
         private readonly NotifyHandler _notifyHandler = NotifyHandler.InstanceCreation();
         private readonly MainWindowViewModel _mh = MainWindowViewModel.InstanceCreation();
-        private readonly TimeSpan _speed = new TimeSpan(0, 0, 0, 1,0);
+        public  TimeSpan _speed = new TimeSpan(0, 0, 0, 1,0);
         private readonly TimeSpan _speed2 = new TimeSpan(0, 0, 0, 0, 550);
         private readonly Point _startingPoint = new Point(50, 0);
         private readonly Canvas _canvas;
